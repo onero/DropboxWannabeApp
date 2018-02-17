@@ -1,23 +1,6 @@
 /*
 Login template using Angular Material
-@author Shashank Tiwari
 */
-
-body{
-  background-color: #e91e63;
-  font-family: 'Roboto', sans-serif;
-  margin:0px !important;
-}
-
-.app-header{
-  color: #fff;
-  background-color: #e91e63;
-  text-align: center;
-  padding: 1%;
-  -webkit-box-shadow: 2px 4px 58px -20px rgba(0,0,0,1);
-  -moz-box-shadow: 2px 4px 58px -20px rgba(0,0,0,1);
-  box-shadow: 2px 4px 58px -20px rgba(0,0,0,1);
-}
 
 .login-container{
   width: 100%;
