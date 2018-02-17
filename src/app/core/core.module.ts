@@ -5,13 +5,15 @@ import { NavbarComponent } from './navbar/navbar.component';
 import {MatButtonModule, MatToolbarModule} from '@angular/material';
 import {RouterModule} from '@angular/router';
 import { BottomNavComponent } from './bottom-nav/bottom-nav.component';
+import {FlexLayoutModule} from '@angular/flex-layout';
 
 @NgModule({
   imports: [
     CommonModule,
     MatToolbarModule,
     RouterModule,
-    MatButtonModule
+    MatButtonModule,
+    FlexLayoutModule
   ],
   declarations: [PageNotFoundComponent, NavbarComponent, BottomNavComponent],
   exports: [

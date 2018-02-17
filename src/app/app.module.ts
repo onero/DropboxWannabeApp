@@ -10,6 +10,7 @@ import { AuthModule } from './auth/auth.module';
 import { HomeModule } from './home/home.module';
 import { UserModule } from './user/user.module';
 import { CoreModule } from './core/core.module';
+import {FlexLayoutModule} from '@angular/flex-layout';
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import { CoreModule } from './core/core.module';
     AuthModule,
     HomeModule,
     UserModule,
-    CoreModule
+    CoreModule,
+    FlexLayoutModule
   ],
   providers: [],
   bootstrap: [AppComponent]
