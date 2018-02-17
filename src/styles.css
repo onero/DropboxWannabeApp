@@ -4,3 +4,14 @@
 .primary-color {
   background-color: #3d9ae8;
 }
+
+.white {
+  color: white;
+}
+
+.fill-page {
+  height: 80vh;
+  margin:0;
+  padding:0;
+  overflow: auto;
+}
