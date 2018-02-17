@@ -21,5 +21,5 @@ script:
 deploy:
   provider: firebase
   token:
-    secure: $TOKEN
+    secure: "$TOKEN"
   message: "Deployed to Firebase!"
