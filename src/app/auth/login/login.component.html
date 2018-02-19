@@ -1,4 +1,5 @@
 <mat-grid-list cols="3">
+  <br>
   <mat-grid-tile></mat-grid-tile>
 
   <!-- Writing markup for login starts -->
@@ -15,7 +16,7 @@
       <div class="login-box-body">
 
         <!-- Markup for getting Username starts -->
-        <mat-grid-list cols="9" rowHeight="75px">
+        <mat-grid-list cols="9">
           <mat-grid-tile [rowspan]="1" class="login-icon">
             <mat-icon>lock</mat-icon>
           </mat-grid-tile>
@@ -25,10 +26,11 @@
             </mat-input-container>
           </mat-grid-tile>
         </mat-grid-list>
+        <br>
         <!-- Markup for getting Username ends -->
 
         <!-- Markup for getting Password starts -->
-        <mat-grid-list cols="9" rowHeight="100px">
+        <mat-grid-list cols="9">
           <mat-grid-tile [rowspan]="1"  class="login-icon">
             <mat-icon>remove_red_eye</mat-icon>
           </mat-grid-tile>
@@ -38,9 +40,10 @@
             </mat-input-container>
           </mat-grid-tile>
         </mat-grid-list>
+        <br>
         <!-- Markup for getting Password ends -->
 
-        <button mat-raised-button class="login-button">
+        <button routerLink="/file-system" mat-raised-button class="login-button">
           <mat-icon>input</mat-icon> Login
         </button>
 

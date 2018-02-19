@@ -1,10 +1,15 @@
 <mat-toolbar class="adamino-theme">
-  <span class="white" routerLink="/login">Dropbox Wannabe</span>
-
-  <!-- This fills the remaining space of the current row -->
-  <span class="example-fill-remaining-space"></span>
-  <div>
+  <mat-toolbar-row>
+    <button
+      mat-mini-fab
+      class="navbarIcon"
+      (click)="toggleNav()">
+      <mat-icon>list</mat-icon>
+    </button>
+    <span class="white standard-margin" routerLink="/login">
+    Dropbox Wannabe
+  </span>
     <button style="color: white" mat-button routerLink="/file-system">Home</button>
     <button style="color: white" mat-button routerLink="/profile">Profile</button>
-  </div>
+  </mat-toolbar-row>
 </mat-toolbar>

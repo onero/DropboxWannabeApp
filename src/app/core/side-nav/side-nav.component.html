@@ -1,0 +1,16 @@
+<mat-sidenav-container class="main-container">
+  <mat-sidenav mode="side" [opened]="navBarOpen">
+
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+
+    <app-navbar (navToggle)="toggleNav()"></app-navbar>
+
+    <div style="margin-left: 10px">
+      <router-outlet></router-outlet>
+    </div>
+
+    <app-bottom-nav></app-bottom-nav>
+  </mat-sidenav-content>
+</mat-sidenav-container>

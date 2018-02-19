@@ -1,19 +1,21 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 
-$primary-color: #3d9ae8;
+@import "assets/colors";
+
+html, body {
+  margin: 0 !important;
+  height: 100vh;
+}
 
 .adamino-theme {
   background-color: $primary-color;
 }
 
-.white {
-  color: white;
+.standard-margin {
+  margin: 10px;
 }
 
-.fill-page {
-  height: 80vh;
-  margin:0;
-  padding:0;
-  overflow: auto;
+.white {
+  color: white;
 }
