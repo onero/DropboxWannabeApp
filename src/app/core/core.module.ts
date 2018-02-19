@@ -4,7 +4,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { NavbarComponent } from './navbar/navbar.component';
 import {MatButtonModule, MatIconModule, MatSidenavModule, MatToolbarModule} from '@angular/material';
 import {RouterModule} from '@angular/router';
-import { BottomNavComponent } from './bottom-nav/bottom-nav.component';
+import { FooterComponent } from './footer/footer.component';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import { SideNavComponent } from './side-nav/side-nav.component';
 
@@ -18,10 +18,10 @@ import { SideNavComponent } from './side-nav/side-nav.component';
     FlexLayoutModule,
     MatSidenavModule
   ],
-  declarations: [PageNotFoundComponent, NavbarComponent, BottomNavComponent, SideNavComponent],
+  declarations: [PageNotFoundComponent, NavbarComponent, FooterComponent, SideNavComponent],
   exports: [
     NavbarComponent,
-    BottomNavComponent,
+    FooterComponent,
     SideNavComponent
   ]
 })
