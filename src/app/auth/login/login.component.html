@@ -31,7 +31,7 @@
         </mat-list-item>
         <!--Login footer-->
         <mat-list-item class="login-footer">
-          <button class="login-button" mat-raised-button>LOGIN</button>
+          <button [disabled]="email.invalid || password.invalid" class="login-button" mat-raised-button>LOGIN</button>
           <button class="new-user-button" mat-raised-button>NEW USER</button>
         </mat-list-item>
       </mat-list>
