@@ -5,6 +5,7 @@ import {LoginComponent} from './auth/login/login.component';
 import {ProfileComponent} from './user/profile/profile.component';
 import {FileSystemComponent} from './home/file-system/file-system.component';
 import {PageNotFoundComponent} from './core/page-not-found/page-not-found.component';
+import {NewUserComponent} from './user/new-user/new-user.component';
 
 const routes: Routes = [
   { path: '',
@@ -14,6 +15,10 @@ const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent
+  },
+  {
+    path: 'new-user',
+    component: NewUserComponent
   },
   {
     path: 'profile',

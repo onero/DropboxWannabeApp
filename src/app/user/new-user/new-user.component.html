@@ -1,0 +1,74 @@
+<mat-grid-list cols="3">
+  <!--Left side-->
+  <mat-grid-tile></mat-grid-tile>
+  <!--Center-->
+  <mat-grid-tile>
+    <mat-card class="new-user-container">
+      <mat-list>
+        <!--new-user header-->
+        <mat-list-item class="new-user-header">
+          <img class="new-user-header-image" src="../../../assets/icon.png">
+        </mat-list-item>
+        <!--new-user body-->
+        <mat-list-item class="new-user-body">
+          <form [formGroup]="newUserForm"
+                class="new-user-form"
+                (submit)="createUser()">
+            <div class="form-group">
+              <mat-form-field class="new-user-full-width">
+                <input matInput
+                       placeholder="Username"
+                       formControlName="username"
+                       required>
+                <mat-error *ngIf="username.invalid">
+                  {{getUsernameErrorMessage()}}
+                </mat-error>
+              </mat-form-field>
+              <mat-form-field class="new-user-full-width">
+                <input matInput
+                       placeholder="Email"
+                       formControlName="email"
+                       required>
+                <mat-error *ngIf="email.invalid">
+                  {{getEmailErrorMessage()}}
+                </mat-error>
+              </mat-form-field>
+              <mat-form-field class="new-user-full-width">
+                <input matInput
+                       type="password"
+                       placeholder="Password"
+                       formControlName="password"
+                       required>
+                <mat-error *ngIf="password.invalid">
+                  {{getPasswordErrorMessage()}}
+                </mat-error>
+              </mat-form-field>
+              <mat-form-field class="new-user-full-width">
+                <input matInput
+                       type="password"
+                       placeholder="Repeat Password"
+                       formControlName="repeatPassword"
+                       required>
+                <mat-error *ngIf="repeatPassword.invalid">
+                  {{getPasswordShouldMatchErrorMessage()}}
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </form>
+        </mat-list-item>
+        <!--new-user footer-->
+        <mat-list-item class="new-user-footer">
+          <button type="submit"
+                  [disabled]="newUserForm.invalid"
+                  class="new-user-button"
+                  mat-raised-button>CREATE</button>
+          <button routerLink="/login"
+                  class="cancel-button"
+                  mat-raised-button>CANCEL</button>
+        </mat-list-item>
+      </mat-list>
+    </mat-card>
+  </mat-grid-tile>
+  <!--Right side-->
+  <mat-grid-tile></mat-grid-tile>
+</mat-grid-list>
