@@ -1,36 +1,19 @@
-import { Component, OnInit } from '@angular/core';
-import {Router} from '@angular/router';
+import { Component} from '@angular/core';
+import {FormControl, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent {
 
-  model: any = {email: '', password: ''};
+  email = new FormControl('', [Validators.required, Validators.email]);
+  password = new FormControl('', [Validators.required]);
 
-  constructor(//public auth: AuthService,
-              private router: Router) { }
-
-  ngOnInit() {
-    // reset login status
-    // this.auth.signOut();
-  }
-
-  googleLogin() {
-    // this.auth.googleLogin().then(result => {
-    //   this.navigateHome();
-    // });
-  }
-
-  private navigateHome() {
-    this.router.navigateByUrl('/home');
-  }
-
-  signIn() {
-    // this.auth.emailLogin(this.model.email, this.model.password).then(result => {
-    //   this.navigateHome();
-    // });
+  getErrorMessage() {
+    return this.email.hasError('required') ? 'You must enter a value' :
+      this.email.hasError('email') ? 'Not a valid email' :
+        '';
   }
 }

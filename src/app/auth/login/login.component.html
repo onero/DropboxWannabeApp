@@ -1,58 +1,42 @@
 <mat-grid-list cols="3">
-  <br>
+  <!--Left side-->
   <mat-grid-tile></mat-grid-tile>
-
-  <!-- Writing markup for login starts -->
-  <mat-grid-tile class='login-element'>
-    <div class="login-container">
-
-      <!-- Template Header starts -->
-      <div class="login-box-header">
-        <img src="../../../assets/icon.png">
-      </div>
-      <!-- Template Header ends -->
-
-      <!-- Template Body starts -->
-      <div class="login-box-body">
-
-        <!-- Markup for getting Username starts -->
-        <mat-grid-list cols="9">
-          <mat-grid-tile [rowspan]="1" class="login-icon">
-            <mat-icon>lock</mat-icon>
-          </mat-grid-tile>
-          <mat-grid-tile [colspan]="7">
-            <mat-input-container class="justifier">
-              <input matInput placeholder="Username" text="text">
-            </mat-input-container>
-          </mat-grid-tile>
-        </mat-grid-list>
-        <br>
-        <!-- Markup for getting Username ends -->
-
-        <!-- Markup for getting Password starts -->
-        <mat-grid-list cols="9">
-          <mat-grid-tile [rowspan]="1"  class="login-icon">
-            <mat-icon>remove_red_eye</mat-icon>
-          </mat-grid-tile>
-          <mat-grid-tile [colspan]="7">
-            <mat-input-container class="justifier">
-              <input type="password" matInput placeholder="Password" text="password">
-            </mat-input-container>
-          </mat-grid-tile>
-        </mat-grid-list>
-        <br>
-        <!-- Markup for getting Password ends -->
-
-        <button routerLink="/file-system" mat-raised-button class="login-button">
-          <mat-icon>input</mat-icon> Login
-        </button>
-
-      </div>
-      <!-- Template Body ends -->
-
-    </div>
+  <!--Center-->
+  <mat-grid-tile>
+    <mat-card class="login-container">
+      <mat-list>
+        <!--Login header-->
+        <mat-list-item class="login-header">
+          <img class="login-header-image" src="../../../assets/icon.png">
+        </mat-list-item>
+        <!--Login body-->
+        <mat-list-item class="login-body">
+          <form class="login-form">
+            <mat-form-field class="login-full-width">
+              <input matInput
+                     placeholder="Email"
+                     [formControl]="email"
+                     required>
+              <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
+            </mat-form-field>
+            <mat-form-field class="login-full-width">
+              <input matInput
+                     type="password"
+                     placeholder="Password"
+                     [formControl]="password"
+                     required>
+              <mat-error *ngIf="password.invalid">{{getErrorMessage()}}</mat-error>
+            </mat-form-field>
+          </form>
+        </mat-list-item>
+        <!--Login footer-->
+        <mat-list-item class="login-footer">
+          <button class="login-button" mat-raised-button>LOGIN</button>
+          <button class="new-user-button" mat-raised-button>NEW USER</button>
+        </mat-list-item>
+      </mat-list>
+    </mat-card>
   </mat-grid-tile>
-  <!-- Writing markup for login ends -->
+  <!--Right side-->
   <mat-grid-tile></mat-grid-tile>
-
 </mat-grid-list>

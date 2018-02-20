@@ -1,0 +1,51 @@
+@import "../../../assets/colors";
+
+.login-container {
+  background-color: #fff;
+  -webkit-box-shadow: 2px 4px 58px -20px rgba(0,0,0,1);
+  -moz-box-shadow: 2px 4px 58px -20px rgba(0,0,0,1);
+  box-shadow: 2px 4px 58px -20px rgba(0,0,0,1);
+}
+
+.login-header {
+  //background-color: $dropbox-blue;
+  margin-bottom: 20%;
+  padding-bottom: 5%;
+}
+
+.login-header-image {
+  background-image: url("../../../assets/icon.png");
+  background-size: cover;
+  margin-left: 30%;
+}
+
+.login-body {
+  padding-bottom: 20%;
+}
+
+.login-form {
+  min-width: 150px;
+  max-width: 250px;
+  width: 100%;
+}
+
+.login-full-width {
+  width: 100%;
+}
+
+.login-footer {
+  //background-color: $dropbox-blue;
+}
+
+.login-button {
+  background-color: $android-green;
+  margin-right: 10%;
+  margin-left: 10%;
+  color: white;
+}
+
+.new-user-button {
+  background-color: $orange;
+  color: white;
+}
+
