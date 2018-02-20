@@ -15,8 +15,10 @@
                 class="new-user-form"
                 (submit)="createUser()">
             <div class="form-group">
+              <!--Username-->
               <mat-form-field class="new-user-full-width">
                 <input matInput
+                       appAutofocus
                        placeholder="Username"
                        formControlName="username"
                        required>
@@ -24,6 +26,7 @@
                   {{getUsernameErrorMessage()}}
                 </mat-error>
               </mat-form-field>
+              <!--Email-->
               <mat-form-field class="new-user-full-width">
                 <input matInput
                        placeholder="Email"
@@ -33,6 +36,7 @@
                   {{getEmailErrorMessage()}}
                 </mat-error>
               </mat-form-field>
+              <!--Password-->
               <mat-form-field class="new-user-full-width">
                 <input matInput
                        type="password"
@@ -43,6 +47,7 @@
                   {{getPasswordErrorMessage()}}
                 </mat-error>
               </mat-form-field>
+              <!--Repeat Password-->
               <mat-form-field class="new-user-full-width">
                 <input matInput
                        type="password"

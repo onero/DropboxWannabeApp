@@ -7,6 +7,7 @@ import {RouterModule} from '@angular/router';
 import { FooterComponent } from './footer/footer.component';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import { SideNavComponent } from './side-nav/side-nav.component';
+import { AutofocusDirective } from './autofocus.directive';
 
 @NgModule({
   imports: [
@@ -20,11 +21,12 @@ import { SideNavComponent } from './side-nav/side-nav.component';
     MatListModule,
     MatIconModule
   ],
-  declarations: [PageNotFoundComponent, NavbarComponent, FooterComponent, SideNavComponent],
+  declarations: [PageNotFoundComponent, NavbarComponent, FooterComponent, SideNavComponent, AutofocusDirective],
   exports: [
     NavbarComponent,
     FooterComponent,
-    SideNavComponent
+    SideNavComponent,
+    AutofocusDirective
   ]
 })
 export class CoreModule { }

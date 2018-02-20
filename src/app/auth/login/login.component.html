@@ -15,8 +15,10 @@
                 class="login-form"
                 (submit)="login()">
             <div class="form-group">
+              <!--Username-->
               <mat-form-field class="login-full-width">
                 <input matInput
+                       appAutofocus
                        placeholder="Email"
                        formControlName="email"
                        required>
@@ -24,6 +26,7 @@
                   {{getEmailErrorMessage()}}
                 </mat-error>
               </mat-form-field>
+              <!--Password-->
               <mat-form-field class="login-full-width">
                 <input matInput
                        type="password"
