@@ -54,17 +54,14 @@
                 </mat-error>
               </mat-form-field>
             </div>
+            <button type="submit"
+                    [disabled]="newUserForm.invalid"
+                    class="new-user-button"
+                    mat-raised-button>CREATE</button>
+            <button routerLink="/login"
+                    class="cancel-button"
+                    mat-raised-button>CANCEL</button>
           </form>
-        </mat-list-item>
-        <!--new-user footer-->
-        <mat-list-item class="new-user-footer">
-          <button type="submit"
-                  [disabled]="newUserForm.invalid"
-                  class="new-user-button"
-                  mat-raised-button>CREATE</button>
-          <button routerLink="/login"
-                  class="cancel-button"
-                  mat-raised-button>CANCEL</button>
         </mat-list-item>
       </mat-list>
     </mat-card>

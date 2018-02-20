@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-new-user',
@@ -25,7 +26,7 @@ export class NewUserComponent implements OnInit {
 
   mustEnterValue = 'You must enter a value';
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit() {
   }
@@ -71,6 +72,7 @@ export class NewUserComponent implements OnInit {
         return 'Passwords should match';
   }
   createUser() {
-    //TODO ALH
+    console.log('Created user ' + this.username.value);
+    this.router.navigateByUrl('/login');
   }
 }

@@ -11,32 +11,38 @@
         </mat-list-item>
         <!--Login body-->
         <mat-list-item class="login-body">
-          <form class="login-form">
-            <mat-form-field class="login-full-width">
-              <input matInput
-                     placeholder="Email"
-                     [formControl]="email"
-                     required>
-              <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
-            </mat-form-field>
-            <mat-form-field class="login-full-width">
-              <input matInput
-                     type="password"
-                     placeholder="Password"
-                     [formControl]="password"
-                     required>
-              <mat-error *ngIf="password.invalid">{{getErrorMessage()}}</mat-error>
-            </mat-form-field>
+          <form [formGroup]="loginForm"
+                class="login-form"
+                (submit)="login()">
+            <div class="form-group">
+              <mat-form-field class="login-full-width">
+                <input matInput
+                       placeholder="Email"
+                       formControlName="email"
+                       required>
+                <mat-error *ngIf="email.invalid">
+                  {{getEmailErrorMessage()}}
+                </mat-error>
+              </mat-form-field>
+              <mat-form-field class="login-full-width">
+                <input matInput
+                       type="password"
+                       placeholder="Password"
+                       formControlName="password"
+                       required>
+                <mat-error *ngIf="password.invalid">
+                  {{getPasswordErrorMessage()}}
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <button type="submit"
+                    [disabled]="loginForm.invalid"
+                    class="login-button"
+                    mat-raised-button>LOGIN</button>
+            <button class="new-user-button"
+                    mat-raised-button
+                    routerLink="/new-user">NEW USER</button>
           </form>
-        </mat-list-item>
-        <!--Login footer-->
-        <mat-list-item class="login-footer">
-          <button [disabled]="email.invalid || password.invalid"
-                  class="login-button"
-                  mat-raised-button>LOGIN</button>
-          <button class="new-user-button"
-                  mat-raised-button
-                  routerLink="/new-user">NEW USER</button>
         </mat-list-item>
       </mat-list>
     </mat-card>

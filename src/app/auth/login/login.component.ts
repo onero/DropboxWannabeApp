@@ -1,25 +1,56 @@
-import { Component} from '@angular/core';
-import {FormControl, Validators} from '@angular/forms';
+import {Component, OnInit} from '@angular/core';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
+
+  loginForm = new FormGroup ({
+    email: new FormControl('', [
+      Validators.required,
+      Validators.email]),
+    password: new FormControl('', [
+      Validators.required,
+      Validators.minLength(6)])
+  });
 
   mustEnterValue = 'You must enter a value';
 
-  email = new FormControl('', [Validators.required, Validators.email]);
-  password = new FormControl('', [Validators.required]);
+  constructor(private router: Router) {}
 
-  getErrorMessage() {
-    return this.email.hasError('required') ?
-       this.mustEnterValue :
-      this.email.hasError('email') ?
+  ngOnInit(): void {
+  }
+
+  get email() {
+    return this.loginForm.get('email');
+  }
+
+  get password() {
+    return this.loginForm.get('password');
+  }
+
+  getEmailErrorMessage(): string {
+    return this.email.errors.required ?
+      this.mustEnterValue :
+      this.email.errors.email ?
         'Not a valid email' :
-        this.password.hasError('required') ?
-          this.mustEnterValue :
         '';
+  }
+  getPasswordErrorMessage(): string {
+    return this.password.errors.required ?
+      this.mustEnterValue :
+      this.password.errors.minlength ?
+        'Password should be at least ' + this.password.errors.minlength.requiredLength + ' characters' :
+        '';
+  }
+
+  login() {
+    // TODO ALH: Upate
+    console.log('User logged in!');
+    this.router.navigateByUrl('/file-system');
   }
 }
