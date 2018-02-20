@@ -7,7 +7,7 @@ import {RouterModule} from '@angular/router';
 import { FooterComponent } from './footer/footer.component';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import { SideNavComponent } from './side-nav/side-nav.component';
-import { AutofocusDirective } from './autofocus.directive';
+import { AutofocusDirective } from './directives/autofocus.directive';
 
 @NgModule({
   imports: [
