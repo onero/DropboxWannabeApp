@@ -1,16 +1,16 @@
 <!--The content below is only a placeholder and can be replaced.-->
-<mat-sidenav-container class="main-container">
+<mat-sidenav-container fxFlexFill>
   <mat-sidenav mode="side"
                [opened]="navBarOpen">
     <mat-nav-list>
       <a mat-list-item routerLink="/file-system"><mat-icon>folder</mat-icon> Folders</a>
     </mat-nav-list>
   </mat-sidenav>
-  <mat-sidenav-content>
-    <app-navbar (navToggle)="toggleNav()">
-    </app-navbar>
-    <div style="margin-left: 10px">
+  <mat-sidenav-content fxLayout="column">
+    <app-navbar (navToggle)="toggleNav()"></app-navbar>
+    <div fxFlex>
       <router-outlet></router-outlet>
     </div>
+    <app-footer></app-footer>
   </mat-sidenav-content>
 </mat-sidenav-container>
