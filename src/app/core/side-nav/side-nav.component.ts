@@ -9,7 +9,7 @@ import {AuthService} from '../../auth/auth.service';
 export class SideNavComponent implements OnInit {
   navBarOpen = false;
 
-  constructor(private authService: AuthService) { }
+  constructor(public authService: AuthService) { }
 
   ngOnInit() {
     this.authService.authenticationUpdated.subscribe(userLoggedIn => {
