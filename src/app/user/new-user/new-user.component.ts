@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {fadeInAnimation} from '../../core/animations/fade-in.animation';
+import {environment} from '../../../environments/environment';
 
 @Component({
   selector: 'app-new-user',
@@ -31,6 +32,10 @@ export class NewUserComponent implements OnInit {
   constructor(private router: Router) { }
 
   ngOnInit() {
+  }
+
+  shouldBeMobileFriendly(): boolean {
+    return environment.shouldBeMobileFriendly;
   }
 
   get username() {

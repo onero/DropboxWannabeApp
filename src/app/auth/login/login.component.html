@@ -1,4 +1,4 @@
-<div *ngIf="!shouldBeMobileFriendly; then normal else mobileFriendly"></div>
+<div *ngIf="!shouldBeMobileFriendly(); then normal else mobileFriendly"></div>
 <ng-template #mobileFriendly>
   <div *ngIf="true; then formContent"></div>
 </ng-template>

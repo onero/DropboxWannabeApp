@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import {MediaChange, ObservableMedia} from '@angular/flex-layout';
+import {environment} from '../environments/environment';
+import {Subscription} from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +9,21 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'app';
+
+  mediaWatcher: Subscription;
+
+  constructor(media: ObservableMedia) {
+    this.mediaWatcher = media.subscribe((change: MediaChange) => {
+      switch (change.mqAlias) {
+        case 'xs':
+          environment.shouldBeMobileFriendly = true;
+          break;
+        case 'sm':
+          environment.shouldBeMobileFriendly = true;
+          break;
+        default:
+          environment.shouldBeMobileFriendly = false;
+      }
+    });
+  }
 }
