@@ -7,6 +7,8 @@ import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 })
 export class NavbarComponent implements OnInit {
 
+  userLoggedIn = true;
+
   @Output()
   navToggle = new EventEmitter();
 

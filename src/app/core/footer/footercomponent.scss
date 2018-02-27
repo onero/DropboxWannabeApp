@@ -1,4 +1,11 @@
+@import "../../../assets/colors";
+
 .footer {
   padding-top: 1em;
   padding-bottom: 1em;
+}
+
+.company {
+  color: $orange;
+  font-weight: bold;
 }

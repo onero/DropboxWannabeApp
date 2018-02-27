@@ -1,6 +1,6 @@
 <mat-toolbar class="adamino-theme">
   <mat-toolbar-row>
-    <button
+    <button *ngIf="userLoggedIn"
       mat-mini-fab
       class="navbarIcon"
       (click)="toggleNav()">
@@ -9,7 +9,9 @@
     <span class="white standard-margin" routerLink="/login">
     Dropbox Wannabe
   </span>
-    <button style="color: white" mat-button routerLink="/file-system">Home</button>
-    <button style="color: white" mat-button routerLink="/profile">Profile</button>
+    <div *ngIf="userLoggedIn">
+      <a class="navLink" mat-button  routerLinkActive="navLinkActive" routerLink="/file-system" >Home</a>
+      <a class="navLink" mat-button routerLinkActive="navLinkActive" routerLink="/profile" >Profile</a>
+    </div>
   </mat-toolbar-row>
 </mat-toolbar>
