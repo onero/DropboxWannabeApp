@@ -1,6 +1,6 @@
 <mat-toolbar class="adamino-theme">
   <mat-toolbar-row fxLayout="row">
-    <button *ngIf="authService.isLoggedIn()"
+    <button *ngIf="authService.isLoggedIn() && shouldBeMobileFriendly()"
             mat-mini-fab
             class="navbarIcon"
             (click)="toggleNav()">
@@ -9,7 +9,7 @@
     <span class="white standard-margin" routerLink="/">
     Dropbox Wannabe
   </span>
-    <div *ngIf="authService.isLoggedIn()" fxFlex>
+    <div *ngIf="authService.isLoggedIn() && !shouldBeMobileFriendly()" fxFlex>
       <a class="navLink" mat-button  routerLinkActive="navLinkActive" routerLink="/file-system" >Home</a>
       <a class="navLink" mat-button routerLinkActive="navLinkActive" routerLink="/profile" >Profile</a>
       <div fxFlex></div>

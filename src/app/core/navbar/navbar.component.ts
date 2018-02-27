@@ -1,6 +1,6 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {AuthService} from '../../auth/auth.service';
-import {Router} from '@angular/router';
+import {environment} from '../../../environments/environment';
 
 @Component({
   selector: 'app-navbar',
@@ -12,10 +12,13 @@ export class NavbarComponent implements OnInit {
   @Output()
   navToggle = new EventEmitter();
 
-  constructor(public authService: AuthService,
-              private router: Router) { }
+  constructor(public authService: AuthService) { }
 
   ngOnInit() {
+  }
+
+  shouldBeMobileFriendly() {
+    return environment.shouldBeMobileFriendly;
   }
 
   toggleNav() {
