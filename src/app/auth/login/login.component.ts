@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {flyInAnimation} from '../../core/animations/fly-in.animation';
+import {AuthService} from '../auth.service';
 
 @Component({
   selector: 'app-login',
@@ -22,7 +23,8 @@ export class LoginComponent implements OnInit {
 
   mustEnterValue = 'You must enter a value';
 
-  constructor(private router: Router) {}
+  constructor(private router: Router,
+              private authService: AuthService) {}
 
   ngOnInit(): void {
   }
@@ -51,8 +53,7 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    // TODO ALH: Upate
-    console.log('User logged in!');
-    this.router.navigateByUrl('/file-system');
+    this.authService.login();
+    this.router.navigateByUrl('');
   }
 }

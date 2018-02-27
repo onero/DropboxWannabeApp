@@ -1,5 +1,6 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {AuthService} from '../../auth/auth.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -11,7 +12,8 @@ export class NavbarComponent implements OnInit {
   @Output()
   navToggle = new EventEmitter();
 
-  constructor(public authService: AuthService) { }
+  constructor(public authService: AuthService,
+              private router: Router) { }
 
   ngOnInit() {
   }

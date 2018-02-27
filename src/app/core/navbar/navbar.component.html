@@ -1,9 +1,9 @@
 <mat-toolbar class="adamino-theme">
   <mat-toolbar-row>
     <button *ngIf="authService.isLoggedIn()"
-      mat-mini-fab
-      class="navbarIcon"
-      (click)="toggleNav()">
+            mat-mini-fab
+            class="navbarIcon"
+            (click)="toggleNav()">
       <mat-icon>list</mat-icon>
     </button>
     <span class="white standard-margin" routerLink="/">
@@ -12,6 +12,12 @@
     <div *ngIf="authService.isLoggedIn()">
       <a class="navLink" mat-button  routerLinkActive="navLinkActive" routerLink="/file-system" >Home</a>
       <a class="navLink" mat-button routerLinkActive="navLinkActive" routerLink="/profile" >Profile</a>
+      <button (click)="authService.logout()" class="navLink"
+         mat-button>
+        Logout
+        <mat-icon class="navLink">power_settings_new
+        </mat-icon>
+      </button>
     </div>
   </mat-toolbar-row>
 </mat-toolbar>
