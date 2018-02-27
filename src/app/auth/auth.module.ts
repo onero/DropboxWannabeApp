@@ -9,6 +9,8 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {RouterModule} from '@angular/router';
 import {CoreModule} from '../core/core.module';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { AuthGuard } from './auth.guard';
+import { AuthService } from './auth.service';
 
 @NgModule({
   imports: [
@@ -25,6 +27,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
     MatCardModule,
     RouterModule
   ],
-  declarations: [LoginComponent]
+  declarations: [LoginComponent],
+  providers: [AuthGuard, AuthService]
 })
 export class AuthModule { }

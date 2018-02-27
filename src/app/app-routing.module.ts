@@ -6,6 +6,7 @@ import {ProfileComponent} from './user/profile/profile.component';
 import {FileSystemComponent} from './home/file-system/file-system.component';
 import {PageNotFoundComponent} from './core/page-not-found/page-not-found.component';
 import {NewUserComponent} from './user/new-user/new-user.component';
+import {AuthGuard} from './auth/auth.guard';
 
 const routes: Routes = [
   { path: '',
@@ -22,11 +23,13 @@ const routes: Routes = [
   },
   {
     path: 'profile',
-    component: ProfileComponent
+    component: ProfileComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'file-system',
-    component: FileSystemComponent
+    component: FileSystemComponent,
+    canActivate: [AuthGuard]
   },
   { path: '**', component: PageNotFoundComponent } // This must be last!
 ];
