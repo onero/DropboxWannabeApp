@@ -10,8 +10,13 @@ import {AuthGuard} from './auth/auth.guard';
 
 const routes: Routes = [
   { path: '',
-    redirectTo: '/login',
+    redirectTo: 'file-system',
     pathMatch: 'full'
+  },
+  {
+    path: 'file-system',
+    component: FileSystemComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'login',
@@ -24,11 +29,6 @@ const routes: Routes = [
   {
     path: 'profile',
     component: ProfileComponent,
-    canActivate: [AuthGuard]
-  },
-  {
-    path: 'file-system',
-    component: FileSystemComponent,
     canActivate: [AuthGuard]
   },
   { path: '**', component: PageNotFoundComponent } // This must be last!
