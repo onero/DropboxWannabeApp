@@ -1,55 +1,66 @@
-<mat-grid-list cols="3">
-  <!--Left side-->
-  <mat-grid-tile></mat-grid-tile>
-  <!--Center-->
-  <mat-grid-tile>
-    <mat-card [@flyInAnimation] class="login-container">
-      <mat-list>
-        <!--Login header-->
-        <mat-list-item class="login-header">
-          <img class="login-header-image" src="../../../assets/icon.png">
-        </mat-list-item>
-        <!--Login body-->
-        <mat-list-item class="login-body">
-          <form [formGroup]="loginForm"
-                class="login-form"
-                (submit)="login()">
-            <div class="form-group">
-              <!--Username-->
-              <mat-form-field class="login-full-width">
-                <input matInput
-                       appAutofocus
-                       placeholder="Email"
-                       formControlName="email"
-                       required>
-                <mat-error *ngIf="email.invalid">
-                  {{getEmailErrorMessage()}}
-                </mat-error>
-              </mat-form-field>
-              <!--Password-->
-              <mat-form-field class="login-full-width">
-                <input matInput
-                       type="password"
-                       placeholder="Password"
-                       formControlName="password"
-                       required>
-                <mat-error *ngIf="password.invalid">
-                  {{getPasswordErrorMessage()}}
-                </mat-error>
-              </mat-form-field>
-            </div>
-            <button type="submit"
-                    [disabled]="loginForm.invalid"
-                    class="login-button"
-                    mat-raised-button>LOGIN</button>
-            <button class="new-user-button"
-                    mat-raised-button
-                    routerLink="/new-user">NEW USER</button>
-          </form>
-        </mat-list-item>
-      </mat-list>
-    </mat-card>
-  </mat-grid-tile>
-  <!--Right side-->
-  <mat-grid-tile></mat-grid-tile>
-</mat-grid-list>
+<div *ngIf="!shouldBeMobileFriendly; then normal else mobileFriendly"></div>
+<ng-template #mobileFriendly>
+  <div *ngIf="true; then formContent"></div>
+</ng-template>
+<ng-template #normal>
+  <mat-grid-list cols="3"
+                 rowHeight="100%">
+    <!--Left side-->
+    <mat-grid-tile></mat-grid-tile>
+    <!--Center-->
+    <mat-grid-tile>
+      <mat-card [@flyInAnimation] class="login-container">
+        <mat-list>
+          <!--Login header-->
+          <mat-list-item class="login-header">
+            <img class="login-header-image" src="../../../assets/icon.png">
+          </mat-list-item>
+          <!--Login body-->
+          <mat-list-item class="login-body">
+            <div *ngIf="true; then formContent"></div>
+          </mat-list-item>
+        </mat-list>
+      </mat-card>
+    </mat-grid-tile>
+    <!--Right side-->
+    <mat-grid-tile></mat-grid-tile>
+  </mat-grid-list>
+</ng-template>
+
+<ng-template #formContent>
+    <form [formGroup]="loginForm"
+          class="login-form"
+          (submit)="login()">
+      <div class="form-group">
+        <!--Username-->
+        <mat-form-field class="login-full-width">
+          <input matInput
+                 appAutofocus
+                 placeholder="Email"
+                 formControlName="email"
+                 required>
+          <mat-error *ngIf="email.invalid">
+            {{getEmailErrorMessage()}}
+          </mat-error>
+        </mat-form-field>
+        <!--Password-->
+        <mat-form-field class="login-full-width">
+          <input matInput
+                 type="password"
+                 placeholder="Password"
+                 formControlName="password"
+                 required>
+          <mat-error *ngIf="password.invalid">
+            {{getPasswordErrorMessage()}}
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <button type="submit"
+              [disabled]="loginForm.invalid"
+              class="login-button"
+              mat-raised-button>LOGIN</button>
+      <button class="new-user-button"
+              mat-raised-button
+              routerLink="/new-user">NEW USER</button>
+    </form>
+</ng-template>

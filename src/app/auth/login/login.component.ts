@@ -3,6 +3,8 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {flyInAnimation} from '../../core/animations/fly-in.animation';
 import {AuthService} from '../auth.service';
+import {MediaChange, ObservableMedia} from '@angular/flex-layout';
+import {Subscription} from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-login',
@@ -21,10 +23,27 @@ export class LoginComponent implements OnInit {
       Validators.minLength(6)])
   });
 
+  shouldBeMobileFriendly = false;
+  mediaWatcher: Subscription;
+
   mustEnterValue = 'You must enter a value';
 
   constructor(private router: Router,
-              private authService: AuthService) {}
+              private authService: AuthService,
+              media: ObservableMedia) {
+    this.mediaWatcher = media.subscribe((change: MediaChange) => {
+      switch (change.mqAlias) {
+        case 'xs':
+          this.shouldBeMobileFriendly = true;
+          break;
+        case 'sm':
+          this.shouldBeMobileFriendly = true;
+          break;
+        default:
+          this.shouldBeMobileFriendly = false;
+      }
+    });
+  }
 
   ngOnInit(): void {
   }
