@@ -1,10 +1,11 @@
 import {EventEmitter, Injectable, Output} from '@angular/core';
 import {Router} from '@angular/router';
+import {environment} from '../../environments/environment';
 
 @Injectable()
 export class AuthService {
 
-  userLoggedIn = false;
+  userLoggedIn = environment.userLoggedIn;
 
   @Output()
   authenticationUpdated = new EventEmitter<boolean>();

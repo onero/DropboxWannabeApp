@@ -12,8 +12,9 @@
     <div *ngIf="authService.isLoggedIn()">
       <a class="navLink" mat-button  routerLinkActive="navLinkActive" routerLink="/file-system" >Home</a>
       <a class="navLink" mat-button routerLinkActive="navLinkActive" routerLink="/profile" >Profile</a>
-      <button (click)="authService.logout()" class="navLink"
-         mat-button>
+      <button (click)="authService.logout()"
+        class="navLink"
+        mat-button>
         Logout
         <mat-icon class="navLink">power_settings_new
         </mat-icon>
