@@ -1,8 +1,20 @@
-<input #newFile (keyup.enter)="addFile(newFile.value)">
-<ul>
-  <li *ngFor="let file of files$ | async">
-    {{ file.title }}
-  </li>
-</ul>
+<div fxLayout="row"
+     fxLayoutAlign="center">
+  <mat-card fxFlex="50">
+    <mat-card-title>
+      Upload File
+    </mat-card-title>
 
-<h1 *ngIf="file$ | async as file">{{ file.title }}</h1>
+    <mat-card-content>
+      <input type="file" (change)="uploadFile($event)">
+    </mat-card-content>
+
+    <mat-card-actions>
+      <div *ngIf="uploadPercent">{{ uploadPercent | async }}%</div>
+    </mat-card-actions>
+  </mat-card>
+</div>
+
+<div *ngIf="downloadURL | async; let downloadSrc">
+  <img [src]="downloadSrc">
+</div>

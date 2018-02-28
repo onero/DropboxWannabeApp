@@ -1,25 +1,30 @@
-import { Component, OnInit } from '@angular/core';
-import {FileService} from './file.service';
-import {FirebaseListObservable} from 'angularfire2/database-deprecated';
+import {Component, OnInit} from '@angular/core';
+import {FileService} from './shared/file.service';
+import {Observable} from 'rxjs/Observable';
 
 @Component({
   selector: 'app-file-system',
   templateUrl: './file-system.component.html',
-  styleUrls: ['./file-system.component.css']
+  styleUrls: ['./file-system.component.scss']
 })
 export class FileSystemComponent implements OnInit {
 
-  files$;
-  file$;
+  uploadPercent: Observable<number>;
+  downloadURL: Observable<string>;
 
   constructor(private fileService: FileService) { }
 
   ngOnInit() {
-    this.files$ = this.fileService.getFiles();
-    this.file$ = this.fileService.getFileById(1);
   }
 
-  addFile(newFile: string) {
-    this.fileService.addFile(newFile);
+  uploadFile(event) {
+    const file = event.target.files[0];
+    const task = this.fileService.uploadFile(file);
+
+    this.uploadPercent = task.percentageChanges();
+    this.downloadURL = task.downloadURL();
+    // this.fileService.addFile({
+    //   title: title
+    // });
   }
 }
