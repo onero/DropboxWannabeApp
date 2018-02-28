@@ -63,7 +63,7 @@ export class LoginComponent implements OnInit {
     this.authService.login(this.email.value, this.password.value)
       .then(() => {
         this.router.navigateByUrl('');
-        this.snackService.displaySnack('Welcome Back', 2);
+        this.snackService.displaySnack('Welcome back ' + this.authService.getCurrentUserHandle(), 2);
       })
       .catch(error => {
         this.snackService.displaySnack(error.message, 5);

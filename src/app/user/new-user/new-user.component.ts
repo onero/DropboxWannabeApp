@@ -3,6 +3,8 @@ import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {fadeInAnimation} from '../../core/animations/fade-in.animation';
 import {environment} from '../../../environments/environment';
+import {AuthService} from '../../auth/auth.service';
+import {SnackMessengerService} from '../../core/message-handling/snack-messenger.service';
 
 @Component({
   selector: 'app-new-user',
@@ -17,7 +19,9 @@ export class NewUserComponent implements OnInit {
   mustEnterValue = 'You must enter a value';
 
   constructor(private router: Router,
-              private fb: FormBuilder) {
+              private fb: FormBuilder,
+              private authService: AuthService,
+              private snackService: SnackMessengerService) {
     this.newUserForm = fb.group({
       username: ['', [
         Validators.required,
@@ -35,6 +39,17 @@ export class NewUserComponent implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+
+  createUser() {
+    this.authService.registerWithEmailAndPassword(this.username.value, this.email.value, this.password.value)
+      .then(() => {
+      this.router.navigateByUrl('/login')
+        .then(() => {
+          this.snackService.displaySnack('User Created', 2);
+        });
+      });
   }
 
   shouldBeMobileFriendly(): boolean {
@@ -80,9 +95,5 @@ export class NewUserComponent implements OnInit {
   }
   getPasswordShouldMatchErrorMessage(): string {
         return 'Passwords should match';
-  }
-  createUser() {
-    console.log('Created user ' + this.username.value);
-    this.router.navigateByUrl('/login');
   }
 }

@@ -19,16 +19,37 @@ export class AuthService {
       });
   }
 
+  getCurrentUserHandle(): string {
+    if (this.fireAuth.authState !== null) {
+      return (this.fireAuth.auth.currentUser.displayName !== null) ?
+        this.fireAuth.auth.currentUser.displayName :
+        this.fireAuth.auth.currentUser.email;
+    }
+    return '';
+  }
+
   login(email: string, password: string): Promise<any> {
-    return this.fireAuth.auth.signInAndRetrieveDataWithEmailAndPassword(email, password);
+    return this.fireAuth.auth
+      .signInAndRetrieveDataWithEmailAndPassword(email, password);
+  }
+
+  registerWithEmailAndPassword(username: string, email: string, password: string): Promise<any> {
+    return this.fireAuth.auth
+      .createUserAndRetrieveDataWithEmailAndPassword(email, password)
+      .then(data => {
+        data.user.updateProfile({
+          displayName: username
+        });
+      });
   }
 
   logout() {
+    const username = this.getCurrentUserHandle();
     this.fireAuth.auth.signOut()
       .then(() => {
       this.router.navigateByUrl('/login')
         .then(() => {
-        this.snackService.displaySnack('Goodbye!', 2);
+        this.snackService.displaySnack('Goodbye ' + username, 2);
         });
       });
   }
