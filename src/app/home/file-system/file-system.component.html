@@ -1,3 +1,8 @@
-<p>
-  file-system works!
-</p>
+<input #newFile (keyup.enter)="addFile(newFile.value)">
+<ul>
+  <li *ngFor="let file of files$ | async">
+    {{ file.title }}
+  </li>
+</ul>
+
+<h1 *ngIf="file$ | async as file">{{ file.title }}</h1>
