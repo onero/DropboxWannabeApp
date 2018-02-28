@@ -1,31 +1,36 @@
-import {EventEmitter, Injectable, Output} from '@angular/core';
+import {Injectable} from '@angular/core';
+import {Observable} from 'rxjs/Observable';
+import 'rxjs/add/operator/map';
+import {AngularFireAuth} from 'angularfire2/auth';
 import {Router} from '@angular/router';
-import {environment} from '../../environments/environment';
+import {SnackMessengerService} from '../core/message-handling/snack-messenger.service';
 
 @Injectable()
 export class AuthService {
 
-  userLoggedIn = environment.userLoggedIn;
+  constructor(private fireAuth: AngularFireAuth,
+              private router: Router,
+              private snackService: SnackMessengerService) { }
 
-  @Output()
-  authenticationUpdated = new EventEmitter<boolean>();
-
-  constructor(private router: Router) { }
-
-  isLoggedIn() {
-    return this.userLoggedIn;
+  isAuthenticated(): Observable<boolean> {
+    return this.fireAuth.authState
+      .map(authState => {
+        return authState !== null;
+      });
   }
 
-  login() {
-    // TODO ALH: Implement authentication
-    this.userLoggedIn = true;
-    this.authenticationUpdated.emit(true);
+  login(email: string, password: string): Promise<any> {
+    return this.fireAuth.auth.signInAndRetrieveDataWithEmailAndPassword(email, password);
   }
 
   logout() {
-    this.userLoggedIn = false;
-    this.router.navigateByUrl('/login');
-    this.authenticationUpdated.emit(false);
+    this.fireAuth.auth.signOut()
+      .then(() => {
+      this.router.navigateByUrl('/login')
+        .then(() => {
+        this.snackService.displaySnack('Goodbye!', 2);
+        });
+      });
   }
 
 }

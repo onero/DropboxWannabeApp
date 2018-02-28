@@ -11,6 +11,8 @@ import {UserModule} from './user/user.module';
 import {CoreModule} from './core/core.module';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import {AppRoutes} from './app.routing';
+import {AngularFireModule} from 'angularfire2';
+import {environment} from '../environments/environment';
 
 
 @NgModule({
@@ -26,7 +28,8 @@ import {AppRoutes} from './app.routing';
     HomeModule,
     UserModule,
     CoreModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    AngularFireModule.initializeApp(environment.firebase)
   ],
   providers: [],
   bootstrap: [AppComponent]

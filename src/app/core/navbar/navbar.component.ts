@@ -1,6 +1,7 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {AuthService} from '../../auth/auth.service';
 import {environment} from '../../../environments/environment';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -9,12 +10,19 @@ import {environment} from '../../../environments/environment';
 })
 export class NavbarComponent implements OnInit {
 
+  isLoggedIn: boolean;
+
   @Output()
   navToggle = new EventEmitter();
 
-  constructor(public authService: AuthService) { }
+  constructor(private authService: AuthService,
+              private router: Router) { }
 
   ngOnInit() {
+    this.authService.isAuthenticated()
+      .subscribe(userLoggedIn => {
+        this.isLoggedIn = userLoggedIn;
+      });
   }
 
   shouldBeMobileFriendly() {
@@ -23,5 +31,9 @@ export class NavbarComponent implements OnInit {
 
   toggleNav() {
     this.navToggle.emit();
+  }
+
+  logout() {
+    this.authService.logout();
   }
 }

@@ -9,22 +9,23 @@ import {AuthService} from '../../auth/auth.service';
 export class SideNavComponent implements OnInit {
   navBarOpen = false;
 
-  constructor(public authService: AuthService) { }
+  constructor(private authService: AuthService) { }
 
   ngOnInit() {
-    this.authService.authenticationUpdated.subscribe(userLoggedIn => {
-      if (!userLoggedIn) {
-        this.onUserLoggedOut();
-      }
-    });
-  }
-
-  onUserLoggedOut() {
-    this.navBarOpen = false;
+    this.authService.isAuthenticated()
+      .subscribe(isAuthenticated => {
+        if (!isAuthenticated) {
+          this.navBarOpen = false;
+        }
+      });
   }
 
   toggleNav() {
     this.navBarOpen = !this.navBarOpen;
+  }
+
+  logout() {
+    this.authService.logout();
   }
 
 }
