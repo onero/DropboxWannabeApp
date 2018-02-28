@@ -49,6 +49,9 @@ export class NewUserComponent implements OnInit {
         .then(() => {
           this.snackService.displaySnack('User Created', 2);
         });
+      })
+      .catch(error => {
+        this.snackService.displaySnack(error.message, 5);
       });
   }
 
