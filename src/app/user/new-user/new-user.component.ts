@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {fadeInAnimation} from '../../core/animations/fade-in.animation';
 import {environment} from '../../../environments/environment';
@@ -12,24 +12,27 @@ import {environment} from '../../../environments/environment';
 })
 export class NewUserComponent implements OnInit {
 
-  newUserForm = new FormGroup ({
-    username: new FormControl('', [
-      Validators.required,
-      Validators.minLength(3)]),
-    email: new FormControl('', [
-      Validators.required,
-      Validators.email]),
-    password: new FormControl('', [
-      Validators.required,
-      Validators.minLength(6)]),
-    repeatPassword: new FormControl('', [
-      Validators.required,
-      Validators.minLength(6)]),
-  });
+  newUserForm: FormGroup;
 
   mustEnterValue = 'You must enter a value';
 
-  constructor(private router: Router) { }
+  constructor(private router: Router,
+              private fb: FormBuilder) {
+    this.newUserForm = fb.group({
+      username: ['', [
+        Validators.required,
+        Validators.minLength(3)]],
+      email: ['', [
+        Validators.required,
+        Validators.email]],
+      password: ['', [
+        Validators.required,
+        Validators.minLength(6)]],
+      repeatPassword: ['', [
+        Validators.required,
+        Validators.minLength(6)]]
+    });
+  }
 
   ngOnInit() {
   }
