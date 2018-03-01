@@ -28,6 +28,10 @@ export class AuthService {
     return '';
   }
 
+  getUserId(): string {
+    return this.fireAuth.auth.currentUser.uid;
+  }
+
   login(email: string, password: string): Promise<any> {
     return this.fireAuth.auth
       .signInAndRetrieveDataWithEmailAndPassword(email, password);

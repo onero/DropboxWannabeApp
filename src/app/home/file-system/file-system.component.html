@@ -1,20 +1,52 @@
-<div fxLayout="row"
-     fxLayoutAlign="center">
-  <mat-card fxFlex="50">
-    <mat-card-title>
-      Upload File
-    </mat-card-title>
+<div fxLayout="row" fxFlexFill>
+  <!--FILE DROP-->
+  <div fxLayout="column">
+    <div class="dropzone"
+         fxFlex="20"
+         appDropZone
+         (hovered)="toggleHover($event)"
+         (dropped)="startUpload($event)"
+         [class.hovering]="isHovering">
 
-    <mat-card-content>
-      <input type="file" (change)="uploadFile($event)">
-    </mat-card-content>
+      <!--FILE DROP CONTENT-->
+      <div fxFlex
+           fxFlexAlign="center"
+           fxFlexOffset="10">
+        <h3>Drop Zone</h3>
 
-    <mat-card-actions>
-      <div *ngIf="uploadPercent">{{ uploadPercent | async }}%</div>
-    </mat-card-actions>
-  </mat-card>
-</div>
+        <input class="file-input" type="file" (change)="startUpload($event.target.files)">
+      </div>
+    </div>
 
-<div *ngIf="downloadURL | async; let downloadSrc">
-  <img [src]="downloadSrc">
+    <div *ngIf="uploadPercent | async as pct">
+      <progress class="progress is-info"
+                [value]="pct"
+                max="100">
+      </progress>
+      {{ pct | number }}%
+    </div>
+
+    <div *ngIf="snapshot | async as snap">
+      {{ snap.bytesTransferred | fileSize }} of {{ snap.totalBytes | fileSize }}
+
+      <div>
+        <button class="pause-button" (click)="pause()" mat-button [disabled]="!isUploading(snap)">Pause</button>
+        <button class="resume-button" (click)="resume()" mat-button [disabled]="!(snap?.state === 'paused')">Resume</button>
+        <button class="cancel-button" (click)="cancel()" mat-button [disabled]="!isUploading(snap)">Cancel</button>
+      </div>
+    </div>
+  </div>
+  <!--FILES-->
+  <div fxLayout="column"
+       fxFlex="50" fxFlexOffset="10">
+    <h3 fxFlexAlign="center">Files</h3>
+    <mat-grid-list cols="2" rowHeight="2:1">
+      <mat-grid-tile *ngFor="let file of files | async">
+        <img fxFlex src="{{file.path}}">
+        <mat-grid-tile-footer>
+          <a href="{{file.path}}">Download</a>
+        </mat-grid-tile-footer>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </div>
 </div>

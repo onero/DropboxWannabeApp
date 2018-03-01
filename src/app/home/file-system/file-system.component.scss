@@ -1,0 +1,36 @@
+@import "../../../assets/colors";
+
+
+.dropzone {
+  border: 2px dashed $android-green;
+
+  &.hovering {
+    border: 2px solid $orange;
+    color: #dadada !important;
+  }
+}
+
+progress::-webkit-progress-value {
+  transition: width 0.1s ease;
+}
+
+button {
+  color: white;
+}
+
+img {
+  width: 250px;
+  height: 250px;
+}
+
+.pause-button {
+  background-color: $orange;
+}
+
+.resume-button {
+  background-color: $android-green;
+}
+
+.cancel-button {
+  background-color: $red;
+}
