@@ -18,6 +18,7 @@ export class FileSystemComponent implements OnInit {
   // State for dropzone CSS toggling
   isHovering: boolean;
   task: AngularFireUploadTask;
+  uploadIsActive = false;
 
   files: Observable<any[]>;
 
@@ -34,12 +35,14 @@ export class FileSystemComponent implements OnInit {
   startUpload(event: FileList) {
     const file = event.item(0);
     this.task = this.fileService.uploadFile(file);
+    this.uploadIsActive = true;
 
     this.task.then(() => {
       let urlString: string;
       this.downloadURL.subscribe(value => {
         urlString = value;
         this.fileService.updateCollection(urlString);
+        this.uploadIsActive = false;
       });
     });
 
@@ -64,8 +67,14 @@ export class FileSystemComponent implements OnInit {
     this.downloadURL = null;
   }
 
-  isUploading(snapshot) {
+  isUploading(snapshot): boolean {
+    if (snapshot === null) { return false; }
     return snapshot.state === 'running' &&
       snapshot.bytesTransferred < snapshot.totalBytes;
+  }
+
+  isPaused(snapshot): boolean {
+    if (snapshot === null) { return false; }
+    return snapshot.state === 'paused';
   }
 }
