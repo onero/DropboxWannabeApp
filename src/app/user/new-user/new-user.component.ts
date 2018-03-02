@@ -5,8 +5,10 @@ import {fadeInAnimation} from '../../core/animations/fade-in.animation';
 import {environment} from '../../../environments/environment';
 import {AuthService} from '../../auth/auth.service';
 import {SnackMessengerService} from '../../core/message-handling/snack-messenger.service';
-import {passwordsMustMatch} from './password.validator';
+import {passwordsMustMatch} from './validators/password.validator';
 import {User} from '../user.model';
+import {UsernameValidator} from './validators/username.validator';
+import {AngularFirestore} from 'angularfire2/firestore';
 
 @Component({
   selector: 'app-new-user',
@@ -23,11 +25,13 @@ export class NewUserComponent implements OnInit {
   constructor(private router: Router,
               private fb: FormBuilder,
               private authService: AuthService,
-              private snackService: SnackMessengerService) {
+              private snackService: SnackMessengerService,
+              private afs: AngularFirestore) {
     this.newUserForm = fb.group({
       username: ['', [
         Validators.required,
-        Validators.minLength(3)]],
+        Validators.minLength(3)],
+        UsernameValidator.usernameAvailable(this.afs)],
       email: ['', [
         Validators.required,
         Validators.email]],
@@ -52,10 +56,10 @@ export class NewUserComponent implements OnInit {
     };
     this.authService.registerWithEmailAndPassword(newUser)
       .then(() => {
-      this.router.navigateByUrl('/login')
-        .then(() => {
-          this.snackService.displaySnack('User Created', 2);
-        });
+        this.router.navigateByUrl('/login')
+          .then(() => {
+            this.snackService.displaySnack('User Created', 2);
+          });
       })
       .catch(error => {
         this.snackService.displaySnack(error.message, 5);
@@ -82,11 +86,18 @@ export class NewUserComponent implements OnInit {
   }
 
   getUsernameErrorMessage(): string {
-    return this.username.errors.required ?
-      this.mustEnterValue :
-      this.username.errors.minlength ?
-        'Username must be at least ' + this.username.errors.minlength.requiredLength + ' characters' :
-        '';
+    if (this.username.errors.required) {
+      return this.mustEnterValue;
+    } else if (this.username.errors.minlength) {
+      console.log(this.username.errors)
+      const requiredLength = this.username.errors.minlength.requiredLength;
+      return `Username must be at least ${requiredLength} characters`;
+    } else if (this.username.errors.usernameAvailable) {
+      return `Sorry ${this.username.value} is already taken!`;
+    } else {
+      console.log(this.username.errors)
+      return '';
+    }
   }
 
   getEmailErrorMessage(): string {
@@ -104,8 +115,8 @@ export class NewUserComponent implements OnInit {
         '';
   }
   getPasswordShouldMatchErrorMessage(): string {
-        return this.repeatPassword.errors.required ?
-          this.mustEnterValue :
-          'Passwords must match';
+    return this.repeatPassword.errors.required ?
+      this.mustEnterValue :
+      'Passwords must match';
   }
 }

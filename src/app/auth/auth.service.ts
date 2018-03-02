@@ -5,13 +5,19 @@ import {AngularFireAuth} from 'angularfire2/auth';
 import {Router} from '@angular/router';
 import {SnackMessengerService} from '../core/message-handling/snack-messenger.service';
 import {User} from '../user/user.model';
+import {AngularFirestore, AngularFirestoreCollection} from 'angularfire2/firestore';
 
 @Injectable()
 export class AuthService {
 
+  userCollection$: AngularFirestoreCollection<User>;
+
   constructor(private fireAuth: AngularFireAuth,
               private router: Router,
-              private snackService: SnackMessengerService) { }
+              private snackService: SnackMessengerService,
+              private afs: AngularFirestore) {
+    this.userCollection$ = this.afs.collection('users');
+  }
 
   isAuthenticated(): Observable<boolean> {
     return this.fireAuth.authState
@@ -42,8 +48,14 @@ export class AuthService {
     return this.fireAuth.auth
       .createUserAndRetrieveDataWithEmailAndPassword(user.email, user.password)
       .then(data => {
-        data.user.updateProfile({
+        const createdUser = data.user;
+        createdUser.updateProfile({
           displayName: user.username
+        });
+        this.userCollection$.add({
+          uid: createdUser.uid,
+          username: user.username,
+          email: user.email
         });
       });
   }
