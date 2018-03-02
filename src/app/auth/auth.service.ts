@@ -4,6 +4,7 @@ import 'rxjs/add/operator/map';
 import {AngularFireAuth} from 'angularfire2/auth';
 import {Router} from '@angular/router';
 import {SnackMessengerService} from '../core/message-handling/snack-messenger.service';
+import {User} from '../user/user.model';
 
 @Injectable()
 export class AuthService {
@@ -37,12 +38,12 @@ export class AuthService {
       .signInAndRetrieveDataWithEmailAndPassword(email, password);
   }
 
-  registerWithEmailAndPassword(username: string, email: string, password: string): Promise<any> {
+  registerWithEmailAndPassword(user: User): Promise<any> {
     return this.fireAuth.auth
-      .createUserAndRetrieveDataWithEmailAndPassword(email, password)
+      .createUserAndRetrieveDataWithEmailAndPassword(user.email, user.password)
       .then(data => {
         data.user.updateProfile({
-          displayName: username
+          displayName: user.username
         });
       });
   }

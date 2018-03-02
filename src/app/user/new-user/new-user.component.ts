@@ -1,11 +1,12 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {fadeInAnimation} from '../../core/animations/fade-in.animation';
 import {environment} from '../../../environments/environment';
 import {AuthService} from '../../auth/auth.service';
 import {SnackMessengerService} from '../../core/message-handling/snack-messenger.service';
 import {passwordsMustMatch} from './password.validator';
+import {User} from '../user.model';
 
 @Component({
   selector: 'app-new-user',
@@ -44,7 +45,12 @@ export class NewUserComponent implements OnInit {
 
 
   createUser() {
-    this.authService.registerWithEmailAndPassword(this.username.value, this.email.value, this.password.value)
+    const newUser: User = {
+      username: this.username.value,
+      email: this.email.value,
+      password: this.password.value
+    };
+    this.authService.registerWithEmailAndPassword(newUser)
       .then(() => {
       this.router.navigateByUrl('/login')
         .then(() => {
