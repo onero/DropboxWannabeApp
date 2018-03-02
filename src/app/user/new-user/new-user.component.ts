@@ -5,6 +5,7 @@ import {fadeInAnimation} from '../../core/animations/fade-in.animation';
 import {environment} from '../../../environments/environment';
 import {AuthService} from '../../auth/auth.service';
 import {SnackMessengerService} from '../../core/message-handling/snack-messenger.service';
+import {passwordsMustMatch} from './password.validator';
 
 @Component({
   selector: 'app-new-user',
@@ -34,7 +35,7 @@ export class NewUserComponent implements OnInit {
         Validators.minLength(6)]],
       repeatPassword: ['', [
         Validators.required,
-        Validators.minLength(6)]]
+        passwordsMustMatch()]]
     });
   }
 
@@ -97,6 +98,8 @@ export class NewUserComponent implements OnInit {
         '';
   }
   getPasswordShouldMatchErrorMessage(): string {
-        return 'Passwords should match';
+        return this.repeatPassword.errors.required ?
+          this.mustEnterValue :
+          'Passwords must match';
   }
 }
