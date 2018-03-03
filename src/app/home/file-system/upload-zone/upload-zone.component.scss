@@ -3,6 +3,7 @@
 
 .dropzone {
   border: 2px dashed $android-green;
+  height: 150px;
 
   &.hovering {
     border: 2px solid $orange;
@@ -16,11 +17,6 @@ progress::-webkit-progress-value {
 
 button {
   color: white;
-}
-
-img {
-  width: 250px;
-  height: 250px;
 }
 
 .pause-button {

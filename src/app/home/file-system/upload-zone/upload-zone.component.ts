@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {AngularFireUploadTask} from 'angularfire2/storage';
 import {Observable} from 'rxjs/Observable';
 import {FileService} from '../shared/file.service';
+import {SnackMessengerService} from '../../../core/message-handling/snack-messenger.service';
 
 @Component({
   selector: 'app-upload-zone',
@@ -22,7 +23,8 @@ export class UploadZoneComponent implements OnInit {
 
 
 
-  constructor(private fileService: FileService) {}
+  constructor(private fileService: FileService,
+              private snack: SnackMessengerService) {}
 
   ngOnInit() {
   }
@@ -43,7 +45,10 @@ export class UploadZoneComponent implements OnInit {
         this.fileService.updateCollection(urlString);
         this.uploadIsActive = false;
       });
-    });
+    })
+      .catch(error => {
+        this.snack.displaySnack(error.message, 5);
+      });
 
     // Progress monitoring
     this.uploadPercent = this.task.percentageChanges();
