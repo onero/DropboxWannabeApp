@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {FileService} from './shared/file.service';
 import {Observable} from 'rxjs/Observable';
 import {AngularFireUploadTask} from 'angularfire2/storage';
+import {NgxGalleryAnimation, NgxGalleryImage, NgxGalleryOptions} from 'ngx-gallery';
+import {forEach} from '@angular/router/src/utils/collection';
 
 @Component({
   selector: 'app-file-system',
@@ -22,7 +24,9 @@ export class FileSystemComponent implements OnInit {
 
   files: Observable<any[]>;
 
-  constructor(private fileService: FileService) { }
+
+  constructor(private fileService: FileService) {
+  }
 
   ngOnInit() {
     this.files = this.fileService.files$;
@@ -68,13 +72,19 @@ export class FileSystemComponent implements OnInit {
   }
 
   isUploading(snapshot): boolean {
-    if (snapshot === null) { return false; }
+    if (snapshot === null) {
+      return false;
+    }
     return snapshot.state === 'running' &&
       snapshot.bytesTransferred < snapshot.totalBytes;
   }
 
   isPaused(snapshot): boolean {
-    if (snapshot === null) { return false; }
+    if (snapshot === null) {
+      return false;
+    }
     return snapshot.state === 'paused';
   }
+
+
 }

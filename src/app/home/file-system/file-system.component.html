@@ -24,8 +24,8 @@
                   class="progress is-info"
                   [value]="pct"
                   max="100">
+          {{ pct | number }}%
         </progress>
-        {{ pct | number }}%
         {{ snap.bytesTransferred | fileSize }} of {{ snap.totalBytes | fileSize }}
         <div>
           <button class="pause-button" (click)="pause()" mat-button [disabled]="!isUploading(snap)">Pause</button>
@@ -37,15 +37,10 @@
   </div>
   <!--FILES-->
   <div fxLayout="column"
-       fxFlex="50" fxFlexOffset="10">
-    <h3 fxFlexAlign="center">Files</h3>
-    <mat-grid-list cols="2" rowHeight="2:1">
-      <mat-grid-tile *ngFor="let file of files | async">
-        <img fxFlex src="{{file.path}}">
-        <mat-grid-tile-footer>
-          <a href="{{file.path}}">Download</a>
-        </mat-grid-tile-footer>
-      </mat-grid-tile>
-    </mat-grid-list>
+       fxFlex>
+    <div fxLayoutAlign="center">
+    <app-image-gallery [files]="files"></app-image-gallery>
+
+    </div>
   </div>
 </div>

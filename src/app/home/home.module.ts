@@ -9,6 +9,8 @@ import {AngularFireStorageModule} from 'angularfire2/storage';
 import {DropZoneDirective} from './file-system/shared/drop-zone.directive';
 import { FileSizePipe } from './file-system/shared/file-size.pipe';
 import {AngularFirestoreModule} from 'angularfire2/firestore';
+import {NgxGalleryModule} from 'ngx-gallery';
+import { ImageGalleryComponent } from './file-system/image-gallery/image-gallery.component';
 
 @NgModule({
   imports: [
@@ -20,9 +22,10 @@ import {AngularFirestoreModule} from 'angularfire2/firestore';
     FlexLayoutModule,
     MatButtonModule,
     MatIconModule,
-    MatGridListModule
+    MatGridListModule,
+    NgxGalleryModule
   ],
-  declarations: [FileSystemComponent, DropZoneDirective, FileSizePipe],
+  declarations: [FileSystemComponent, DropZoneDirective, FileSizePipe, ImageGalleryComponent],
   providers: [FileService]
 })
 export class HomeModule { }
