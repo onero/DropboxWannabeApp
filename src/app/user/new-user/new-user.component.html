@@ -36,9 +36,16 @@
       <mat-form-field class="new-user-full-width">
         <input matInput
                appAutofocus
+               #usernameInput
                placeholder="Username"
                formControlName="username"
                required>
+        <mat-hint *ngIf="username.pending">
+          Hold tight... Checking availability of {{ username.value }}
+        </mat-hint>
+        <mat-hint *ngIf="username.valid">
+          Congratulations {{ username.value }} is available!
+        </mat-hint>
         <mat-error *ngIf="username.invalid">
           {{getUsernameErrorMessage()}}
         </mat-error>
@@ -72,12 +79,12 @@
                formControlName="repeatPassword"
                required>
         <mat-error *ngIf="repeatPassword.invalid">
-          {{getPasswordShouldMatchErrorMessage()}}
+          {{getPasswordMustMatchErrorMessage()}}
         </mat-error>
       </mat-form-field>
     </div>
     <button type="submit"
-            [disabled]="newUserForm.invalid"
+            [disabled]="!newUserForm.valid"
             class="new-user-button"
             mat-raised-button>CREATE</button>
     <button routerLink="/login"

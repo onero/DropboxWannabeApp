@@ -8,15 +8,18 @@ export class UsernameValidator {
 
       const username = control.value.toLowerCase();
 
-      return afs.collection('users', ref =>
-        ref.where('username', '==', username))
+      return afs.collection('users',
+          ref =>
+            ref.where('username', '==', username))
+
         .valueChanges().pipe(
           debounceTime(500),
           take(1),
           map(arr => arr.length ?
-            {'usernameAvailable': {usernameAvailable: false}}:
-            null )
+            {'usernameAvailable': {usernameAvailable: false}} :
+            null),
         );
     };
   }
+
 }

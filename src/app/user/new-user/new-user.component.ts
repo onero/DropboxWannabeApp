@@ -5,7 +5,7 @@ import {fadeInAnimation} from '../../core/animations/fade-in.animation';
 import {environment} from '../../../environments/environment';
 import {AuthService} from '../../auth/auth.service';
 import {SnackMessengerService} from '../../core/message-handling/snack-messenger.service';
-import {passwordsMustMatch} from './validators/password.validator';
+import {PasswordValidator} from './validators/password.validator';
 import {User} from '../user.model';
 import {UsernameValidator} from './validators/username.validator';
 import {AngularFirestore} from 'angularfire2/firestore';
@@ -28,9 +28,9 @@ export class NewUserComponent implements OnInit {
               private snackService: SnackMessengerService,
               private afs: AngularFirestore) {
     this.newUserForm = fb.group({
-      username: ['', [
-        Validators.required,
-        Validators.minLength(3)],
+      username: ['',
+        [Validators.required,
+          Validators.minLength(3)],
         UsernameValidator.usernameAvailable(this.afs)],
       email: ['', [
         Validators.required,
@@ -40,7 +40,7 @@ export class NewUserComponent implements OnInit {
         Validators.minLength(6)]],
       repeatPassword: ['', [
         Validators.required,
-        passwordsMustMatch()]]
+        PasswordValidator.passwordsMustMatch()]]
     });
   }
 
@@ -73,6 +73,7 @@ export class NewUserComponent implements OnInit {
   get username() {
     return this.newUserForm.get('username');
   }
+
   get email() {
     return this.newUserForm.get('email');
   }
@@ -89,34 +90,44 @@ export class NewUserComponent implements OnInit {
     if (this.username.errors.required) {
       return this.mustEnterValue;
     } else if (this.username.errors.minlength) {
-      console.log(this.username.errors)
       const requiredLength = this.username.errors.minlength.requiredLength;
       return `Username must be at least ${requiredLength} characters`;
     } else if (this.username.errors.usernameAvailable) {
       return `Sorry ${this.username.value} is already taken!`;
     } else {
-      console.log(this.username.errors)
       return '';
     }
   }
 
   getEmailErrorMessage(): string {
-    return this.email.errors.required ?
-      this.mustEnterValue :
-      this.email.errors.email ?
-        'Not a valid email' :
-        '';
+    if (this.email.errors.required) {
+      return this.mustEnterValue;
+    } else if (this.email.errors.email) {
+      return 'Not a valid email';
+    } else {
+      return '';
+    }
   }
+
   getPasswordErrorMessage(): string {
-    return this.password.errors.required ?
-      this.mustEnterValue :
-      this.password.errors.minlength ?
-        'Password should be at least ' + this.password.errors.minlength.requiredLength + ' characters' :
-        '';
+    if (this.password.errors.required) {
+      return this.mustEnterValue;
+    } else if (this.password.errors.minlength) {
+      const requiredLength = this.password.errors.minlength.requiredLength;
+      return `Password should be at least ${requiredLength} characters`;
+    } else {
+      return '';
+    }
   }
-  getPasswordShouldMatchErrorMessage(): string {
-    return this.repeatPassword.errors.required ?
-      this.mustEnterValue :
-      'Passwords must match';
+
+  getPasswordMustMatchErrorMessage(): string {
+    if (this.repeatPassword.errors.required) {
+      return this.mustEnterValue;
+    } else if (this.repeatPassword.errors.passwordsMustMatch) {
+      return 'Passwords must match';
+    } else {
+      return '';
+    }
+
   }
 }
