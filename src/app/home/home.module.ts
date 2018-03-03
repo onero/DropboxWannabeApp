@@ -11,6 +11,7 @@ import { FileSizePipe } from './file-system/shared/file-size.pipe';
 import {AngularFirestoreModule} from 'angularfire2/firestore';
 import {NgxGalleryModule} from 'ngx-gallery';
 import { ImageGalleryComponent } from './file-system/image-gallery/image-gallery.component';
+import { UploadZoneComponent } from './file-system/upload-zone/upload-zone.component';
 
 @NgModule({
   imports: [
@@ -25,7 +26,7 @@ import { ImageGalleryComponent } from './file-system/image-gallery/image-gallery
     MatGridListModule,
     NgxGalleryModule
   ],
-  declarations: [FileSystemComponent, DropZoneDirective, FileSizePipe, ImageGalleryComponent],
+  declarations: [FileSystemComponent, DropZoneDirective, FileSizePipe, ImageGalleryComponent, UploadZoneComponent],
   providers: [FileService]
 })
 export class HomeModule { }

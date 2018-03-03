@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {NgxGalleryImage, NgxGalleryOptions} from 'ngx-gallery';
 import {Observable} from 'rxjs/Observable';
+import {FileService} from '../shared/file.service';
 
 @Component({
   selector: 'app-image-gallery',
@@ -14,9 +15,11 @@ export class ImageGalleryComponent implements OnInit {
   galleryOptions: NgxGalleryOptions[];
   galleryImages: NgxGalleryImage[];
 
-  constructor() { }
+  constructor(private fileService: FileService) { }
 
   ngOnInit() {
+    this.files = this.fileService.files$;
+
     this.galleryOptions = [
       {'imageSize': 'contain'},
       {
