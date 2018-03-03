@@ -12,6 +12,7 @@ import {FlexLayoutModule} from '@angular/flex-layout';
 import { SideNavComponent } from './side-nav/side-nav.component';
 import { AutofocusDirective } from './directives/autofocus.directive';
 import { SnackMessengerService } from './message-handling/snack-messenger.service';
+import { ErrorService } from './error-handling/error.service';
 
 @NgModule({
   imports: [
@@ -38,6 +39,6 @@ import { SnackMessengerService } from './message-handling/snack-messenger.servic
     SideNavComponent,
     AutofocusDirective
   ],
-  providers: [SnackMessengerService]
+  providers: [SnackMessengerService, ErrorService]
 })
 export class CoreModule { }

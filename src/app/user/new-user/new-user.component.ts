@@ -9,6 +9,7 @@ import {PasswordValidator} from './validators/password.validator';
 import {User} from '../user.model';
 import {UsernameValidator} from './validators/username.validator';
 import {AngularFirestore} from 'angularfire2/firestore';
+import {ErrorService} from '../../core/error-handling/error.service';
 
 @Component({
   selector: 'app-new-user',
@@ -26,6 +27,7 @@ export class NewUserComponent implements OnInit {
               private fb: FormBuilder,
               private authService: AuthService,
               private snackService: SnackMessengerService,
+              private errorService: ErrorService,
               private afs: AngularFirestore) {
     this.newUserForm = fb.group({
       username: ['',
@@ -63,7 +65,7 @@ export class NewUserComponent implements OnInit {
           });
       })
       .catch(error => {
-        this.snackService.displaySnack(error.message, 5);
+        this.errorService.displayError(error.message);
       });
   }
 

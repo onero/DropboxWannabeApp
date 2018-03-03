@@ -5,6 +5,7 @@ import {flyInAnimation} from '../../core/animations/fly-in.animation';
 import {AuthService} from '../auth.service';
 import {environment} from '../../../environments/environment';
 import {SnackMessengerService} from '../../core/message-handling/snack-messenger.service';
+import {ErrorService} from '../../core/error-handling/error.service';
 
 @Component({
   selector: 'app-login',
@@ -27,7 +28,8 @@ export class LoginComponent implements OnInit {
 
   constructor(private router: Router,
               private authService: AuthService,
-              private snackService: SnackMessengerService) {}
+              private snackService: SnackMessengerService,
+              private errorService: ErrorService) {}
 
   ngOnInit(): void {
   }
@@ -66,7 +68,7 @@ export class LoginComponent implements OnInit {
         this.snackService.displaySnack('Welcome back ' + this.authService.getCurrentUserHandle(), 2);
       })
       .catch(error => {
-        this.snackService.displaySnack(error.message, 5);
+        this.errorService.displayError(error.message);
       });
   }
 }
