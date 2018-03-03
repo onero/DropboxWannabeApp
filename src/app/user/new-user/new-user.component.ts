@@ -31,6 +31,7 @@ export class NewUserComponent implements OnInit {
       username: ['',
         [Validators.required,
           Validators.minLength(3)],
+        // Third param is for async validators!
         UsernameValidator.usernameAvailable(this.afs)],
       email: ['', [
         Validators.required,
@@ -95,6 +96,7 @@ export class NewUserComponent implements OnInit {
     } else if (this.username.errors.usernameAvailable) {
       return `Sorry ${this.username.value} is already taken!`;
     } else {
+      console.log('Unknown validation error: ' + this.username.errors);
       return '';
     }
   }
@@ -105,6 +107,7 @@ export class NewUserComponent implements OnInit {
     } else if (this.email.errors.email) {
       return 'Not a valid email';
     } else {
+      console.log('Unknown validation error: ' + this.email.errors);
       return '';
     }
   }
@@ -116,6 +119,7 @@ export class NewUserComponent implements OnInit {
       const requiredLength = this.password.errors.minlength.requiredLength;
       return `Password should be at least ${requiredLength} characters`;
     } else {
+      console.log('Unknown validation error: ' + this.password.errors);
       return '';
     }
   }
@@ -126,6 +130,7 @@ export class NewUserComponent implements OnInit {
     } else if (this.repeatPassword.errors.passwordsMustMatch) {
       return 'Passwords must match';
     } else {
+      console.log('Unknown validation error: ' + this.repeatPassword.errors);
       return '';
     }
 

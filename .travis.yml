@@ -11,7 +11,9 @@ branches:
       - development
 
 notifications:
-  email: false
+  email: true
+    on_success: change
+    on_failure: always
 
 before_script:
    - npm install -g @angular/cli
