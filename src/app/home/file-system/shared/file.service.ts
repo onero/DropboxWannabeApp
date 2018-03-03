@@ -8,7 +8,6 @@ import {Observable} from 'rxjs/Observable';
 export class FileService {
 
   collection: AngularFirestoreCollection<any>;
-  files$: Observable<any[]>;
 
   private filesCollectionPath = 'files';
 
@@ -21,7 +20,6 @@ export class FileService {
 
     this.collection = this.afs.collection(this.filesCollectionPath)
       .doc(currentUserName).collection(this.userUploadsPath);
-    this.files$ = this.collection.valueChanges();
   }
 
   uploadFile(file: File): AngularFireUploadTask {

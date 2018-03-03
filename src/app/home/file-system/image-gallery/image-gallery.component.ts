@@ -15,11 +15,12 @@ export class ImageGalleryComponent implements OnInit {
   galleryOptions: NgxGalleryOptions[];
   galleryImages: NgxGalleryImage[];
 
-  constructor(private fileService: FileService) { }
+  constructor(private fileService: FileService) {
+  }
 
   ngOnInit() {
-    this.files = this.fileService.files$;
-
+    this.files = this.fileService.collection.valueChanges();
+    this.galleryImages = [];
     this.galleryOptions = [
       {'imageSize': 'contain'},
       {
@@ -35,9 +36,6 @@ export class ImageGalleryComponent implements OnInit {
         'thumbnailsColumns': 2
       }
     ];
-
-
-    this.galleryImages = [];
     this.files.subscribe(files => {
       this.galleryImages = [];
       files.forEach(file => {
@@ -50,5 +48,4 @@ export class ImageGalleryComponent implements OnInit {
       });
     });
   }
-
 }
