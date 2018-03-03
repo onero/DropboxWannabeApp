@@ -43,8 +43,8 @@
         <mat-hint *ngIf="username.pending">
           Hold tight... Checking availability of {{ username.value }}
         </mat-hint>
-        <mat-hint *ngIf="username.valid">
-          Congratulations {{ username.value }} is available!
+        <mat-hint class="usernameAvailable" *ngIf="username.valid">
+          Congratulations <b>{{ username.value }}</b> is available!
         </mat-hint>
         <mat-error *ngIf="username.invalid">
           {{getUsernameErrorMessage()}}
