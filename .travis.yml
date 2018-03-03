@@ -11,7 +11,7 @@ branches:
       - development
 
 notifications:
-  email: true
+  email:
     on_success: change
     on_failure: always
 
