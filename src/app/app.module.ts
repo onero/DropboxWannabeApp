@@ -13,6 +13,7 @@ import {FlexLayoutModule} from '@angular/flex-layout';
 import {AppRoutes} from './app.routing';
 import {AngularFireModule} from 'angularfire2';
 import {environment} from '../environments/environment';
+import {Ng4LoadingSpinnerModule} from 'ng4-loading-spinner';
 
 
 @NgModule({
@@ -29,7 +30,8 @@ import {environment} from '../environments/environment';
     UserModule,
     CoreModule,
     FlexLayoutModule,
-    AngularFireModule.initializeApp(environment.firebase)
+    AngularFireModule.initializeApp(environment.firebase),
+    Ng4LoadingSpinnerModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]

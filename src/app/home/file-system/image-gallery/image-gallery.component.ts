@@ -2,6 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {NgxGalleryImage, NgxGalleryOptions} from 'ngx-gallery';
 import {Observable} from 'rxjs/Observable';
 import {FileService} from '../shared/file.service';
+import {Ng4LoadingSpinnerService} from 'ng4-loading-spinner';
 
 @Component({
   selector: 'app-image-gallery',
@@ -14,11 +15,15 @@ export class ImageGalleryComponent implements OnInit{
   files: Observable<any[]>;
   galleryOptions: NgxGalleryOptions[];
   galleryImages: NgxGalleryImage[];
+  isLoading = false;
 
-  constructor(private fileService: FileService) {
+  constructor(private fileService: FileService,
+              private spinnerService: Ng4LoadingSpinnerService) {
   }
 
   ngOnInit() {
+    this.spinnerService.show();
+    this.isLoading = true;
     this.files = this.fileService.getCollection().valueChanges();
     this.galleryImages = [];
     this.galleryOptions = [
@@ -46,6 +51,8 @@ export class ImageGalleryComponent implements OnInit{
         };
         this.galleryImages.push(image);
       });
+      this.spinnerService.hide();
+      this.isLoading = false;
     });
   }
 }

@@ -11,6 +11,7 @@ import {Subscription} from 'rxjs/Subscription';
 export class AppComponent {
 
   mediaWatcher: Subscription;
+  loadingScreen = `<img src="/assets/loading.gif"/>`;
 
   constructor(media: ObservableMedia) {
     this.mediaWatcher = media.subscribe((change: MediaChange) => {

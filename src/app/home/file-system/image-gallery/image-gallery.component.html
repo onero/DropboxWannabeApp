@@ -10,7 +10,9 @@
   </ng-template>
 
   <ng-template #noImages>
-    <h3>You have no images</h3>
-    <h5>You can upload files in the Drop Zone!</h5>
+    <div *ngIf="!isLoading">
+      <h3>You have no images</h3>
+      <h5>You can upload files in the Drop Zone!</h5>
+    </div>
   </ng-template>
 </div>
