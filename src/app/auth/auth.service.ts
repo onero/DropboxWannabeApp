@@ -11,12 +11,20 @@ import {AngularFirestore, AngularFirestoreCollection} from 'angularfire2/firesto
 export class AuthService {
 
   userCollection$: AngularFirestoreCollection<User>;
+  currentUser;
 
   constructor(private fireAuth: AngularFireAuth,
               private router: Router,
               private snackService: SnackMessengerService,
               private afs: AngularFirestore) {
     this.userCollection$ = this.afs.collection('users');
+    this.fireAuth.authState.subscribe(user => {
+      this.currentUser = user;
+    });
+  }
+
+  getUsername(): string {
+    return this.currentUser.displayName;
   }
 
   isAuthenticated(): Observable<boolean> {
@@ -24,19 +32,6 @@ export class AuthService {
       .map(authState => {
         return authState !== null;
       });
-  }
-
-  getCurrentUserHandle(): string {
-    if (this.fireAuth.authState !== null) {
-      return (this.fireAuth.auth.currentUser.displayName !== null) ?
-        this.fireAuth.auth.currentUser.displayName :
-        this.fireAuth.auth.currentUser.email;
-    }
-    return '';
-  }
-
-  getUserId(): string {
-    return this.fireAuth.auth.currentUser.uid;
   }
 
   login(email: string, password: string): Promise<any> {
@@ -61,13 +56,13 @@ export class AuthService {
   }
 
   logout() {
-    const username = this.getCurrentUserHandle();
+    const username = this.currentUser.displayName;
     this.fireAuth.auth.signOut()
       .then(() => {
-      this.router.navigateByUrl('/login')
-        .then(() => {
-        this.snackService.displaySnack('Goodbye ' + username, 2);
-        });
+        this.router.navigateByUrl('/login')
+          .then(() => {
+            this.snackService.displaySnack('Goodbye ' + username, 2);
+          });
       });
   }
 

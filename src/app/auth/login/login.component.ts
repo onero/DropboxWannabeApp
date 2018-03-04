@@ -64,8 +64,10 @@ export class LoginComponent implements OnInit {
   login() {
     this.authService.login(this.email.value, this.password.value)
       .then(() => {
-        this.router.navigateByUrl('');
-        this.snackService.displaySnack('Welcome back ' + this.authService.getCurrentUserHandle(), 2);
+        this.router.navigateByUrl('')
+          .then(() => {
+            this.snackService.displaySnack('Welcome back ' + this.authService.getUsername(), 2);
+          });
       })
       .catch(error => {
         this.errorService.displayError(error.message);

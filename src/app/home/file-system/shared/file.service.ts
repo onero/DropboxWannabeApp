@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {Injectable, OnInit} from '@angular/core';
 import {AngularFireStorage, AngularFireUploadTask} from 'angularfire2/storage';
 import {AuthService} from '../../../auth/auth.service';
 import {AngularFirestore, AngularFirestoreCollection} from 'angularfire2/firestore';
@@ -7,31 +7,32 @@ import {Observable} from 'rxjs/Observable';
 @Injectable()
 export class FileService {
 
-  collection: AngularFirestoreCollection<any>;
-
   private filesCollectionPath = 'files';
 
   private userUploadsPath = 'uploads';
+  private username;
 
   constructor(private storage: AngularFireStorage,
               private authService: AuthService,
               private afs: AngularFirestore) {
-    const currentUserName = this.authService.getCurrentUserHandle();
+  }
 
-    this.collection = this.afs.collection(this.filesCollectionPath)
-      .doc(currentUserName).collection(this.userUploadsPath);
+  getCollection(): AngularFirestoreCollection<any> {
+    this.username = this.authService.currentUser.displayName;
+    return this.afs.collection(this.filesCollectionPath)
+      .doc(this.username).collection(this.userUploadsPath);
   }
 
   uploadFile(file: File): AngularFireUploadTask {
-    const username = this.authService.getCurrentUserHandle();
+    const username = this.authService.currentUser.displayName;
     const path = `${username}/${new Date().getTime()}_${file.name}`;
     return this.storage.upload(path, file);
   }
 
   updateCollection(path: string) {
-    const userId = this.authService.getUserId();
-    const item = { userId, path };
-    this.collection.add(item)
+    const userId = this.authService.currentUser.uid;
+    const item = {userId, path};
+    this.getCollection().add(item)
       .then(() => console.log('Updated!'));
   }
 
