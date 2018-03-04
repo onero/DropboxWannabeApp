@@ -54,7 +54,9 @@
                  required>
           <span (mousedown)="showPassword()"
                 (mouseup)="hidePassword()"
-                class="fa fa-fw fa-eye display-password-icon">
+                [ngClass]="{'fa-eye': password.type === 'password',
+                            'fa-eye-slash': password.type === 'text'}"
+                class="fa fa-fw  display-password-icon">
           </span>
           <mat-error *ngIf="password.invalid">
             {{getPasswordErrorMessage()}}
