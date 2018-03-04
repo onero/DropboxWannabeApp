@@ -1,4 +1,4 @@
-import {Component, Input, OnDestroy, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {NgxGalleryImage, NgxGalleryOptions} from 'ngx-gallery';
 import {Observable} from 'rxjs/Observable';
 import {FileService} from '../shared/file.service';
@@ -19,7 +19,6 @@ export class ImageGalleryComponent implements OnInit{
   }
 
   ngOnInit() {
-    console.log('Creating Gallery');
     this.files = this.fileService.getCollection().valueChanges();
     this.galleryImages = [];
     this.galleryOptions = [
@@ -38,7 +37,6 @@ export class ImageGalleryComponent implements OnInit{
       }
     ];
     this.files.subscribe(files => {
-      console.log(files)
       this.galleryImages = [];
       files.forEach(file => {
         const image = {

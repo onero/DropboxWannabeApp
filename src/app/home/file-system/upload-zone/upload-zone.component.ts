@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import {AngularFireUploadTask} from 'angularfire2/storage';
 import {Observable} from 'rxjs/Observable';
 import {FileService} from '../shared/file.service';
-import {SnackMessengerService} from '../../../core/message-handling/snack-messenger.service';
 import {ErrorService} from '../../../core/error-handling/error.service';
 
 @Component({
