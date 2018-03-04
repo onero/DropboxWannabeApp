@@ -15,7 +15,7 @@ import {ErrorService} from '../../core/error-handling/error.service';
 })
 export class LoginComponent implements OnInit {
 
-  loginForm = new FormGroup ({
+  loginForm = new FormGroup({
     email: new FormControl('', [
       Validators.required,
       Validators.email]),
@@ -24,12 +24,15 @@ export class LoginComponent implements OnInit {
       Validators.minLength(6)])
   });
 
+  passwordInputType = 'password';
+
   mustEnterValue = 'You must enter a value';
 
   constructor(private router: Router,
               private authService: AuthService,
               private snackService: SnackMessengerService,
-              private errorService: ErrorService) {}
+              private errorService: ErrorService) {
+  }
 
   ngOnInit(): void {
   }
@@ -53,6 +56,7 @@ export class LoginComponent implements OnInit {
         'Not a valid email' :
         '';
   }
+
   getPasswordErrorMessage(): string {
     return this.password.errors.required ?
       this.mustEnterValue :
@@ -72,5 +76,13 @@ export class LoginComponent implements OnInit {
       .catch(error => {
         this.errorService.displayError(error.message);
       });
+  }
+
+  showPassword() {
+    this.passwordInputType = 'text';
+  }
+
+  hidePassword() {
+    this.passwordInputType = 'password';
   }
 }

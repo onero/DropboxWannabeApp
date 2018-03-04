@@ -46,10 +46,16 @@
         <!--Password-->
         <mat-form-field class="login-full-width">
           <input matInput
-                 type="password"
+                 id="password"
+                 #password
+                 [type]="passwordInputType"
                  placeholder="Password"
                  formControlName="password"
                  required>
+          <span (mousedown)="showPassword()"
+                (mouseup)="hidePassword()"
+                class="fa fa-fw fa-eye field-icon">
+          </span>
           <mat-error *ngIf="password.invalid">
             {{getPasswordErrorMessage()}}
           </mat-error>
