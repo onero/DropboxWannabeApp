@@ -54,7 +54,7 @@
                  required>
           <span (mousedown)="showPassword()"
                 (mouseup)="hidePassword()"
-                class="fa fa-fw fa-eye field-icon">
+                class="fa fa-fw fa-eye display-password-icon">
           </span>
           <mat-error *ngIf="password.invalid">
             {{getPasswordErrorMessage()}}
