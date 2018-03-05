@@ -25,7 +25,7 @@ export class LoginComponent implements OnInit {
   });
 
   passwordInputType = 'password';
-
+  capsLockOn: boolean;
   mustEnterValue = 'You must enter a value';
 
   constructor(private router: Router,
@@ -84,5 +84,9 @@ export class LoginComponent implements OnInit {
 
   hidePassword() {
     this.passwordInputType = 'password';
+  }
+
+  toggleCapsLock(event: boolean) {
+    this.capsLockOn = event;
   }
 }

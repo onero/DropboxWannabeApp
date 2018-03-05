@@ -46,18 +46,22 @@
         <!--Password-->
         <mat-form-field class="login-full-width">
           <input matInput
-                 id="password"
                  #password
                  [type]="passwordInputType"
                  placeholder="Password"
                  formControlName="password"
+                 appFrannyCapsLock
+                 (capsLock)="toggleCapsLock($event)"
                  required>
           <span (mousedown)="showPassword()"
                 (mouseup)="hidePassword()"
                 [ngClass]="{'fa-eye': password.type === 'password',
                             'fa-eye-slash': password.type === 'text'}"
-                class="fa fa-fw  display-password-icon">
+                class="fa fa-fw display-password-icon">
           </span>
+          <mat-hint *ngIf="capsLockOn">
+            CAPSLOCK IS ACTIVATED!
+          </mat-hint>
           <mat-error *ngIf="password.invalid">
             {{getPasswordErrorMessage()}}
           </mat-error>

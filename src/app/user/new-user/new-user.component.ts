@@ -20,7 +20,6 @@ import {ErrorService} from '../../core/error-handling/error.service';
 export class NewUserComponent implements OnInit {
 
   newUserForm: FormGroup;
-
   mustEnterValue = 'You must enter a value';
 
   constructor(private router: Router,

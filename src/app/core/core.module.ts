@@ -13,6 +13,7 @@ import { SideNavComponent } from './side-nav/side-nav.component';
 import { AutofocusDirective } from './directives/autofocus.directive';
 import { SnackMessengerService } from './message-handling/snack-messenger.service';
 import { ErrorService } from './error-handling/error.service';
+import { FrannyCapsLockDirective } from './directives/franny-caps-lock.directive';
 
 @NgModule({
   imports: [
@@ -32,12 +33,14 @@ import { ErrorService } from './error-handling/error.service';
     NavbarComponent,
     FooterComponent,
     SideNavComponent,
-    AutofocusDirective],
+    AutofocusDirective,
+    FrannyCapsLockDirective],
   exports: [
     NavbarComponent,
     FooterComponent,
     SideNavComponent,
-    AutofocusDirective
+    AutofocusDirective,
+    FrannyCapsLockDirective
   ],
   providers: [SnackMessengerService, ErrorService]
 })
