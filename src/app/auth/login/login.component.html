@@ -59,7 +59,7 @@
                             'fa-eye-slash': password.type === 'text'}"
                 class="fa fa-fw display-password-icon">
           </span>
-          <mat-hint *ngIf="capsLockOn">
+          <mat-hint class="capsLockWarning" *ngIf="capsLockOn">
             CAPSLOCK IS ACTIVATED!
           </mat-hint>
           <mat-error *ngIf="password.invalid">
