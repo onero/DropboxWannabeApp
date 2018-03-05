@@ -5,25 +5,14 @@
       <img mat-card-avatar
            [src]=getProfileSrc()
            alt="Profile photo">
-      <mat-card-title>Username here</mat-card-title>
-      <mat-card-subtitle>Email here</mat-card-subtitle>
+      <mat-card-title>{{username.value}}</mat-card-title>
+      <mat-card-subtitle>{{currentUser?.email}}</mat-card-subtitle>
     </mat-card-header>
     <mat-card-content>
       <form (ngSubmit)="save()"
             [formGroup]="profileForm"
             novalidate
             fxLayout="column">
-        <mat-form-field fxFlex>
-          <input matInput
-                 placeholder="Username"
-                 formControlName="username">
-          <mat-error *ngIf="fcErr('username', 'required')">
-            Username is required
-          </mat-error>
-          <mat-error *ngIf="fcErr('username', 'minlength', ['required'])">
-            Username needs to be at least 4 characters
-          </mat-error>
-        </mat-form-field>
         <mat-form-field fxFlex>
           <input matInput
                  placeholder="First Name"

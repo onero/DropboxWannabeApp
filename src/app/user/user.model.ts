@@ -4,6 +4,9 @@ export class User {
   email?: string;
   password?: string;
   profilePicSrc?: string;
+  firstName?: string;
+  middleName?: string;
+  lastName?: string;
   gender?: boolean;
   birthDate?: Date;
 }
