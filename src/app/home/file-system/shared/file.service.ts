@@ -18,19 +18,19 @@ export class FileService {
   }
 
   getCollection(): AngularFirestoreCollection<any> {
-    this.username = this.authService.currentUser.displayName;
+    this.username = this.authService.getUsername();
     return this.afs.collection(this.filesCollectionPath)
       .doc(this.username).collection(this.userUploadsPath);
   }
 
   uploadFile(file: File): AngularFireUploadTask {
-    const username = this.authService.currentUser.displayName;
+    const username = this.authService.getUsername();
     const path = `${username}/${new Date().getTime()}_${file.name}`;
     return this.storage.upload(path, file);
   }
 
   updateCollection(path: string) {
-    const userId = this.authService.currentUser.uid;
+    const userId = this.authService.getUID();
     const item = {userId, path};
     this.getCollection().add(item)
       .then(() => console.log('Updated!'));

@@ -5,26 +5,35 @@ import {AngularFireAuth} from 'angularfire2/auth';
 import {Router} from '@angular/router';
 import {SnackMessengerService} from '../core/message-handling/snack-messenger.service';
 import {User} from '../user/user.model';
-import {AngularFirestore, AngularFirestoreCollection} from 'angularfire2/firestore';
+import {AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument} from 'angularfire2/firestore';
 
 @Injectable()
 export class AuthService {
 
   userCollection$: AngularFirestoreCollection<User>;
-  currentUser;
+  currentUser: Observable<User>;
 
   constructor(private fireAuth: AngularFireAuth,
               private router: Router,
               private snackService: SnackMessengerService,
               private afs: AngularFirestore) {
     this.userCollection$ = this.afs.collection('users');
-    this.fireAuth.authState.subscribe(user => {
-      this.currentUser = user;
-    });
+    this.currentUser = this.fireAuth.authState
+      .switchMap(user => {
+        if (user) {
+          return this.afs.doc<User>(`users/${user.uid}`).valueChanges();
+        } else {
+          return Observable.of(null);
+        }
+      });
   }
 
   getUsername(): string {
-    return this.currentUser.displayName;
+    return this.fireAuth.auth.currentUser.displayName;
+  }
+
+  getUID(): string {
+    return this.fireAuth.auth.currentUser.uid;
   }
 
   isAuthenticated(): Observable<boolean> {
@@ -43,20 +52,33 @@ export class AuthService {
     return this.fireAuth.auth
       .createUserAndRetrieveDataWithEmailAndPassword(user.email, user.password)
       .then(data => {
+        console.log(data.user);
         const createdUser = data.user;
+        console.log('User created');
         createdUser.updateProfile({
           displayName: user.username
-        });
-        this.userCollection$.add({
-          uid: createdUser.uid,
-          username: user.username,
-          email: user.email
+        }).then(() => {
+            const data: User = {
+            uid: this.fireAuth.auth.currentUser.uid,
+            email: this.fireAuth.auth.currentUser.email,
+            username: this.fireAuth.auth.currentUser.displayName,
+            profilePicSrc: this.fireAuth.auth.currentUser.photoURL
+          };
+          return this.updateFireStoreUsersCollection(data);
         });
       });
   }
 
+  updateFireStoreUsersCollection(user: User) {
+    // const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${user.uid}`);
+    const uid = user.uid !== null ?
+      user.uid :
+      this.fireAuth.auth.currentUser.uid;
+    return this.userCollection$.doc(`${uid}`).set(user, {merge: true});
+  }
+
   logout() {
-    const username = this.currentUser.displayName;
+    const username = this.getUsername();
     this.fireAuth.auth.signOut()
       .then(() => {
         this.router.navigateByUrl('/login')
@@ -65,5 +87,4 @@ export class AuthService {
           });
       });
   }
-
 }

@@ -29,7 +29,7 @@ export class ProfileComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.authService.getUser()
+    this.authService.currentUser
       .subscribe(user => {
         this.currentUser = user;
         this.profileForm.patchValue(this.currentUser);
@@ -38,21 +38,16 @@ export class ProfileComponent implements OnInit {
 
   save() {
     const model = this.profileForm.value;
-    this.authService.updateUser(model)
+    const updatedUser: User = {
+      uid: this.authService.getUID(),
+      firstName: model.firstName,
+      middleName: model.middleName,
+      lastName: model.lastName
+    };
+    this.authService.updateFireStoreUsersCollection(updatedUser)
       .then(() => {
         this.snack.displaySnack('User Updated!', 2);
       });
-  }
-
-  fcErr(fc: string, ec: string, pre?: string[]): boolean {
-    if (pre && pre.length > 0) {
-      for (let i = 0; i < pre.length; i++) {
-        if (this.profileForm.get(fc).hasError(pre[i])) {
-          return false;
-        }
-      }
-    }
-    return this.profileForm.get(fc).hasError(ec);
   }
 
   getProfileSrc() {

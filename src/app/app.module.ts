@@ -14,6 +14,7 @@ import {AppRoutes} from './app.routing';
 import {AngularFireModule} from 'angularfire2';
 import {environment} from '../environments/environment';
 import {Ng4LoadingSpinnerModule} from 'ng4-loading-spinner';
+import {AngularFirestoreModule} from 'angularfire2/firestore';
 
 
 @NgModule({
@@ -31,6 +32,7 @@ import {Ng4LoadingSpinnerModule} from 'ng4-loading-spinner';
     CoreModule,
     FlexLayoutModule,
     AngularFireModule.initializeApp(environment.firebase),
+    AngularFirestoreModule.enablePersistence(),
     Ng4LoadingSpinnerModule.forRoot()
   ],
   providers: [],
