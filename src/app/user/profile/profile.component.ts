@@ -74,4 +74,8 @@ updateProfilePic(event: FileList) {
       }
     }
   }
+
+  deleteUser() {
+    this.authService.deleteUser();
+  }
 }

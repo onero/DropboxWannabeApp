@@ -10,6 +10,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {RouterModule} from '@angular/router';
 import {CoreModule} from '../core/core.module';
 import {FlexLayoutModule} from '@angular/flex-layout';
+import {AngularFireStorageModule} from 'angularfire2/storage';
 
 @NgModule({
   imports: [
@@ -25,6 +26,7 @@ import {FlexLayoutModule} from '@angular/flex-layout';
     MatCardModule,
     MatIconModule,
     FlexLayoutModule,
+    AngularFireStorageModule,
     RouterModule
   ],
   declarations: [ProfileComponent, NewUserComponent]

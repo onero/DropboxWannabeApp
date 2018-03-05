@@ -5,7 +5,8 @@ import {AngularFireAuth} from 'angularfire2/auth';
 import {Router} from '@angular/router';
 import {SnackMessengerService} from '../core/message-handling/snack-messenger.service';
 import {User} from '../user/user.model';
-import {AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument} from 'angularfire2/firestore';
+import {AngularFirestore, AngularFirestoreCollection} from 'angularfire2/firestore';
+import {AngularFireStorage} from 'angularfire2/storage';
 
 @Injectable()
 export class AuthService {
@@ -16,7 +17,8 @@ export class AuthService {
   constructor(private fireAuth: AngularFireAuth,
               private router: Router,
               private snackService: SnackMessengerService,
-              private afs: AngularFirestore) {
+              private afs: AngularFirestore,
+              private dataStorage: AngularFireStorage) {
     this.userCollection$ = this.afs.collection('users');
     this.currentUser = this.fireAuth.authState
       .switchMap(user => {
@@ -58,7 +60,7 @@ export class AuthService {
         createdUser.updateProfile({
           displayName: user.username
         }).then(() => {
-            const data: User = {
+          const data: User = {
             uid: this.fireAuth.auth.currentUser.uid,
             email: this.fireAuth.auth.currentUser.email,
             username: this.fireAuth.auth.currentUser.displayName,
@@ -69,11 +71,21 @@ export class AuthService {
       });
   }
 
+  deleteUser() {
+    // TODO ALH: Delete user files!
+    this.userCollection$.doc(`${this.getUID()}`).delete();
+    this.fireAuth.auth.currentUser.delete()
+      .then(() => {
+        this.router.navigateByUrl('login');
+        this.snackService.displaySnack('Account deleted!', 2);
+      });
+  }
+
   updateFireStoreUsersCollection(user: User) {
     // const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${user.uid}`);
     const uid = user.uid !== null ?
       user.uid :
-      this.fireAuth.auth.currentUser.uid;
+      this.getUID();
     return this.userCollection$.doc(`${uid}`).set(user, {merge: true});
   }
 
