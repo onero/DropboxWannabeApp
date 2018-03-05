@@ -3,6 +3,8 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {AuthService} from '../../auth/auth.service';
 import {User} from '../user.model';
 import {SnackMessengerService} from '../../core/message-handling/snack-messenger.service';
+import {FileService} from '../../home/file-system/shared/file.service';
+import {AngularFireUploadTask} from 'angularfire2/storage';
 
 @Component({
   selector: 'app-profile',
@@ -16,7 +18,8 @@ export class ProfileComponent implements OnInit {
 
   constructor(private authService: AuthService,
               private fb: FormBuilder,
-              private snack: SnackMessengerService) {
+              private snack: SnackMessengerService,
+              private fileService: FileService) {
     this.profileForm = fb.group({
       firstName: '',
       middleName: '',
@@ -36,6 +39,18 @@ export class ProfileComponent implements OnInit {
       });
   }
 
+updateProfilePic(event: FileList) {
+  const file = event.item(0);
+  const uploadTask: AngularFireUploadTask = this.fileService.uploadFile(file);
+  let uploadUrl: string;
+  uploadTask.downloadURL().map(value => uploadUrl = value);
+  uploadTask.then(() => {
+    const updatedUser: User = {
+      profilePicSrc: uploadUrl
+    };
+    this.authService.updateFireStoreUsersCollection(updatedUser);
+  });
+}
   save() {
     const model = this.profileForm.value;
     const updatedUser: User = {
