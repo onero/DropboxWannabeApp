@@ -58,7 +58,7 @@ export class NewUserComponent implements OnInit {
     };
     this.authService.registerWithEmailAndPassword(newUser)
       .then(() => {
-        this.router.navigateByUrl('/login')
+        this.router.navigateByUrl('profile')
           .then(() => {
             this.snackService.displaySnack('User Created', 2);
           });
