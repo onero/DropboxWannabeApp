@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {User} from './user.model';
 import {AngularFirestore} from 'angularfire2/firestore';
 import {Observable} from 'rxjs/Observable';
-import {AuthService} from '../../auth/auth.service';
+import {AuthService} from '../../auth/shared/auth.service';
 import 'rxjs/add/operator/first';
 
 @Injectable()

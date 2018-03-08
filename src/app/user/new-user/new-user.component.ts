@@ -3,7 +3,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {fadeInAnimation} from '../../core/animations/fade-in.animation';
 import {environment} from '../../../environments/environment';
-import {AuthService} from '../../auth/auth.service';
+import {AuthService} from '../../auth/shared/auth.service';
 import {SnackMessengerService} from '../../core/message-handling/snack-messenger.service';
 import {PasswordValidator} from './validators/password.validator';
 import {User} from '../shared/user.model';

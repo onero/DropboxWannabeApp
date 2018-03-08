@@ -1,6 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {AuthService} from '../../auth/auth.service';
+import {AuthService} from '../../auth/shared/auth.service';
 import {User} from '../shared/user.model';
 import {SnackMessengerService} from '../../core/message-handling/snack-messenger.service';
 import {FileService} from '../../home/file-system/shared/file.service';

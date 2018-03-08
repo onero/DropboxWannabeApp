@@ -3,8 +3,8 @@ import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import {AngularFireAuth} from 'angularfire2/auth';
 import {Router} from '@angular/router';
-import {SnackMessengerService} from '../core/message-handling/snack-messenger.service';
-import {User} from '../user/shared/user.model';
+import {SnackMessengerService} from '../../core/message-handling/snack-messenger.service';
+import {User} from '../../user/shared/user.model';
 
 @Injectable()
 export class AuthService {

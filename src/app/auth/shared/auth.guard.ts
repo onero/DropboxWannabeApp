@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot} from '@angular/router';
 import {AuthService} from './auth.service';
-import {SnackMessengerService} from '../core/message-handling/snack-messenger.service';
+import {SnackMessengerService} from '../../core/message-handling/snack-messenger.service';
 import {Observable} from 'rxjs/Observable';
 
 @Injectable()

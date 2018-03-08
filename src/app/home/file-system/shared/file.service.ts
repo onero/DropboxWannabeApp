@@ -1,6 +1,6 @@
 import {Injectable, OnInit} from '@angular/core';
 import {AngularFireStorage, AngularFireUploadTask} from 'angularfire2/storage';
-import {AuthService} from '../../../auth/auth.service';
+import {AuthService} from '../../../auth/shared/auth.service';
 import {AngularFirestore, AngularFirestoreCollection} from 'angularfire2/firestore';
 import {Observable} from 'rxjs/Observable';
 

@@ -1,5 +1,5 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {AuthService} from '../../auth/auth.service';
+import {AuthService} from '../../auth/shared/auth.service';
 import {environment} from '../../../environments/environment';
 import {Router} from '@angular/router';
 
