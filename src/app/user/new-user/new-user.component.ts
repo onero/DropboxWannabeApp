@@ -6,10 +6,12 @@ import {environment} from '../../../environments/environment';
 import {AuthService} from '../../auth/auth.service';
 import {SnackMessengerService} from '../../core/message-handling/snack-messenger.service';
 import {PasswordValidator} from './validators/password.validator';
-import {User} from '../user.model';
+import {User} from '../shared/user.model';
 import {UsernameValidator} from './validators/username.validator';
 import {AngularFirestore} from 'angularfire2/firestore';
 import {ErrorService} from '../../core/error-handling/error.service';
+import {UserService} from '../shared/user.service';
+import {Subscription} from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-new-user',
@@ -27,7 +29,8 @@ export class NewUserComponent implements OnInit {
               private authService: AuthService,
               private snackService: SnackMessengerService,
               private errorService: ErrorService,
-              private afs: AngularFirestore) {
+              private afs: AngularFirestore,
+              private userService: UserService) {
     this.newUserForm = fb.group({
       username: ['',
         [Validators.required,
@@ -51,16 +54,20 @@ export class NewUserComponent implements OnInit {
 
 
   createUser() {
-    const newUser: User = {
-      username: this.username.value,
-      email: this.email.value,
-      password: this.password.value
-    };
-    this.authService.registerWithEmailAndPassword(newUser)
+    // Grab user info from form
+    const userModel = this.newUserForm.value as User;
+    // Register new AuthUser
+    this.authService.registerWithEmailAndPassword(userModel)
       .then(() => {
-        this.router.navigateByUrl('profile')
+        userModel.uid = this.authService.getUID();
+        userModel.username = this.authService.getUsername();
+        // Add User to DB
+        this.userService.updateUser(userModel)
           .then(() => {
-            this.snackService.displaySnack('User Created', 2);
+            this.router.navigateByUrl('profile')
+              .then(() => {
+                this.snackService.displaySnack('User Created', 2);
+              });
           });
       })
       .catch(error => {

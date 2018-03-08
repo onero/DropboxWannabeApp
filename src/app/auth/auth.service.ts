@@ -4,30 +4,14 @@ import 'rxjs/add/operator/map';
 import {AngularFireAuth} from 'angularfire2/auth';
 import {Router} from '@angular/router';
 import {SnackMessengerService} from '../core/message-handling/snack-messenger.service';
-import {User} from '../user/user.model';
-import {AngularFirestore, AngularFirestoreCollection} from 'angularfire2/firestore';
-import {AngularFireStorage} from 'angularfire2/storage';
+import {User} from '../user/shared/user.model';
 
 @Injectable()
 export class AuthService {
 
-  userCollection$: AngularFirestoreCollection<User>;
-  currentUser: Observable<User>;
-
   constructor(private fireAuth: AngularFireAuth,
               private router: Router,
-              private snackService: SnackMessengerService,
-              private afs: AngularFirestore,
-              private dataStorage: AngularFireStorage) {
-    this.userCollection$ = this.afs.collection('users');
-    this.currentUser = this.fireAuth.authState
-      .switchMap(user => {
-        if (user) {
-          return this.afs.doc<User>(`users/${user.uid}`).valueChanges();
-        } else {
-          return Observable.of(null);
-        }
-      });
+              private snackService: SnackMessengerService) {
   }
 
   getUsername(): string {
@@ -36,6 +20,24 @@ export class AuthService {
 
   getUID(): string {
     return this.fireAuth.auth.currentUser.uid;
+  }
+
+  getAuthUser(): Observable<User> {
+    return this.fireAuth.authState
+      .map(authState => {
+        return {
+          uid: authState.uid,
+          email: authState.email
+        };
+      });
+  }
+
+  deleteAuthUser() {
+    this.fireAuth.auth.currentUser.delete()
+      .then(() => {
+        this.router.navigateByUrl('login');
+        this.snackService.displaySnack('Account deleted!', 2);
+      });
   }
 
   isAuthenticated(): Observable<boolean> {
@@ -53,41 +55,15 @@ export class AuthService {
   registerWithEmailAndPassword(user: User): Promise<any> {
     return this.fireAuth.auth
       .createUserAndRetrieveDataWithEmailAndPassword(user.email, user.password)
-      .then(data => {
-        console.log(data.user);
-        const createdUser = data.user;
-        console.log('User created');
-        createdUser.updateProfile({
+      .then(createdAuthUser => {
+        const createdUser = createdAuthUser.user;
+        return createdUser.updateProfile({
           displayName: user.username
-        }).then(() => {
-          const data: User = {
-            uid: this.fireAuth.auth.currentUser.uid,
-            email: this.fireAuth.auth.currentUser.email,
-            username: this.fireAuth.auth.currentUser.displayName,
-            profilePicSrc: this.fireAuth.auth.currentUser.photoURL
-          };
-          return this.updateFireStoreUsersCollection(data);
         });
       });
   }
 
-  deleteUser() {
-    // TODO ALH: Delete user files!
-    this.userCollection$.doc(`${this.getUID()}`).delete();
-    this.fireAuth.auth.currentUser.delete()
-      .then(() => {
-        this.router.navigateByUrl('login');
-        this.snackService.displaySnack('Account deleted!', 2);
-      });
-  }
 
-  updateFireStoreUsersCollection(user: User) {
-    // const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${user.uid}`);
-    const uid = user.uid !== null ?
-      user.uid :
-      this.getUID();
-    return this.userCollection$.doc(`${uid}`).set(user, {merge: true});
-  }
 
   logout() {
     const username = this.getUsername();

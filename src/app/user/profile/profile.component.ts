@@ -1,25 +1,30 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {AuthService} from '../../auth/auth.service';
-import {User} from '../user.model';
+import {User} from '../shared/user.model';
 import {SnackMessengerService} from '../../core/message-handling/snack-messenger.service';
 import {FileService} from '../../home/file-system/shared/file.service';
 import {AngularFireUploadTask} from 'angularfire2/storage';
+import {Subscription} from 'rxjs/Subscription';
+import {UserService} from '../shared/user.service';
+import {ErrorService} from '../../core/error-handling/error.service';
 
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss']
 })
-export class ProfileComponent implements OnInit {
+export class ProfileComponent implements OnInit, OnDestroy {
 
   profileForm: FormGroup;
-  currentUser: User;
+  user: User;
+  userSubscription: Subscription;
 
-  constructor(private authService: AuthService,
-              private fb: FormBuilder,
+  constructor(private fb: FormBuilder,
               private snack: SnackMessengerService,
-              private fileService: FileService) {
+              private errorService: ErrorService,
+              private fileService: FileService,
+              private userService: UserService) {
     this.profileForm = fb.group({
       firstName: '',
       middleName: '',
@@ -27,48 +32,43 @@ export class ProfileComponent implements OnInit {
     });
   }
 
-  get username() {
-    return this.profileForm.get('username');
-  }
-
   ngOnInit() {
-    this.authService.currentUser
+    this.userSubscription = this.userService.getUser()
       .subscribe(user => {
-        this.currentUser = user;
-        this.profileForm.patchValue(this.currentUser);
+        this.user = user;
+        this.profileForm.patchValue(user);
       });
   }
 
-updateProfilePic(event: FileList) {
-  const file = event.item(0);
-  const uploadTask: AngularFireUploadTask = this.fileService.uploadFile(file);
-  let uploadUrl: string;
-  uploadTask.downloadURL().map(value => uploadUrl = value);
-  uploadTask.then(() => {
-    const updatedUser: User = {
-      profilePicSrc: uploadUrl
-    };
-    this.authService.updateFireStoreUsersCollection(updatedUser);
-  });
-}
+  ngOnDestroy() {
+    this.userSubscription.unsubscribe();
+  }
+
+  updateProfilePic(event: FileList) {
+    const file = event.item(0);
+    const uploadTask: AngularFireUploadTask = this.fileService.uploadFile(file);
+    let uploadUrl: string;
+    uploadTask.downloadURL().map(value => uploadUrl = value);
+    uploadTask.then(() => {
+      const updatedUser: User = {
+        profilePicSrc: uploadUrl
+      };
+      // this.authService.updateFireStoreUsersCollection(updatedUser);
+    });
+  }
+
   save() {
-    const model = this.profileForm.value;
-    const updatedUser: User = {
-      uid: this.authService.getUID(),
-      firstName: model.firstName,
-      middleName: model.middleName,
-      lastName: model.lastName
-    };
-    this.authService.updateFireStoreUsersCollection(updatedUser)
-      .then(() => {
-        this.snack.displaySnack('User Updated!', 2);
-      });
+    const updatedUserModel = this.profileForm.value as User;
+    updatedUserModel.uid = this.user.uid;
+    this.userService.updateUser(updatedUserModel)
+      .then(() => this.snack.displaySnack('User Created', 2))
+      .catch(error => this.errorService.displayError(error.message));
   }
 
   getProfileSrc() {
-    if (this.currentUser) {
-      if (this.currentUser.profilePicSrc) {
-        return this.currentUser.profilePicSrc;
+    if (this.user) {
+      if (this.user.profilePicSrc) {
+        return this.user.profilePicSrc;
       } else {
         return '/assets/unknownProfile.png';
       }
@@ -76,6 +76,7 @@ updateProfilePic(event: FileList) {
   }
 
   deleteUser() {
-    this.authService.deleteUser();
+    // TODO ALH: Fix!
+    // this.authService.deleteUser();
   }
 }

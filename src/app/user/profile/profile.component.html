@@ -5,8 +5,8 @@
       <img mat-card-avatar
            [src]=getProfileSrc()
            alt="Profile photo">
-      <mat-card-title>{{currentUser?.username}}</mat-card-title>
-      <mat-card-subtitle>{{currentUser?.email}}</mat-card-subtitle>
+      <mat-card-title>{{user?.username}}</mat-card-title>
+      <mat-card-subtitle>{{user?.email}}</mat-card-subtitle>
     </mat-card-header>
     <mat-card-content>
       <form (ngSubmit)="save()"

@@ -11,6 +11,8 @@ import {RouterModule} from '@angular/router';
 import {CoreModule} from '../core/core.module';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import {AngularFireStorageModule} from 'angularfire2/storage';
+import { UserService } from './shared/user.service';
+import {AngularFirestoreModule} from 'angularfire2/firestore';
 
 @NgModule({
   imports: [
@@ -27,8 +29,10 @@ import {AngularFireStorageModule} from 'angularfire2/storage';
     MatIconModule,
     FlexLayoutModule,
     AngularFireStorageModule,
+    AngularFirestoreModule,
     RouterModule
   ],
-  declarations: [ProfileComponent, NewUserComponent]
+  declarations: [ProfileComponent, NewUserComponent],
+  providers: [UserService]
 })
 export class UserModule { }
