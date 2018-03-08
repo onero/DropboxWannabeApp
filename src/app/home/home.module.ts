@@ -13,6 +13,7 @@ import {NgxGalleryModule} from 'ngx-gallery';
 import { ImageGalleryComponent } from './file-system/image-gallery/image-gallery.component';
 import { UploadZoneComponent } from './file-system/upload-zone/upload-zone.component';
 import {Ng4LoadingSpinnerModule} from 'ng4-loading-spinner';
+import {UnifiedMaterialModule} from '../unified-material.module';
 
 @NgModule({
   imports: [
@@ -21,11 +22,10 @@ import {Ng4LoadingSpinnerModule} from 'ng4-loading-spinner';
     AngularFireStorageModule,
     AngularFirestoreModule,
     MatCardModule,
-    FlexLayoutModule,
-    MatButtonModule,
-    MatIconModule,
     MatGridListModule,
-    NgxGalleryModule
+    UnifiedMaterialModule,
+    NgxGalleryModule,
+    FlexLayoutModule
   ],
   declarations: [FileSystemComponent, DropZoneDirective, FileSizePipe, ImageGalleryComponent, UploadZoneComponent],
   providers: [FileService]

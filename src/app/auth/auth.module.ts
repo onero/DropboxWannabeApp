@@ -19,24 +19,21 @@ import {AuthService} from './shared/auth.service';
 import {AngularFireAuthModule} from 'angularfire2/auth';
 import {AngularFirestoreModule} from 'angularfire2/firestore';
 import {LoggedInGuard} from './shared/logged-in.guard';
+import {FlexLayoutModule} from '@angular/flex-layout';
+import {UnifiedMaterialModule} from '../unified-material.module';
 
 @NgModule({
   imports: [
     CommonModule,
+    CoreModule,
+    UnifiedMaterialModule,
     AngularFireAuthModule,
     AngularFirestoreModule,
     BrowserAnimationsModule,
-    CoreModule,
     FormsModule,
-    MatFormFieldModule,
     ReactiveFormsModule,
-    MatInputModule,
-    MatGridListModule,
-    MatListModule,
-    MatButtonModule,
-    MatCardModule,
-    MatIconModule,
-    RouterModule
+    RouterModule,
+    FlexLayoutModule
   ],
   declarations: [LoginComponent],
   providers: [AuthGuard, AuthService, LoggedInGuard]

@@ -4,7 +4,6 @@ import {NgModule} from '@angular/core';
 
 import {AppComponent} from './app.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {MatButtonModule} from '@angular/material';
 import {AuthModule} from './auth/auth.module';
 import {HomeModule} from './home/home.module';
 import {UserModule} from './user/user.module';
@@ -15,6 +14,7 @@ import {AngularFireModule} from 'angularfire2';
 import {environment} from '../environments/environment';
 import {Ng4LoadingSpinnerModule} from 'ng4-loading-spinner';
 import {AngularFirestoreModule} from 'angularfire2/firestore';
+import {UnifiedMaterialModule} from './unified-material.module';
 
 
 @NgModule({
@@ -25,11 +25,11 @@ import {AngularFirestoreModule} from 'angularfire2/firestore';
     BrowserModule,
     AppRoutes,
     BrowserAnimationsModule,
-    MatButtonModule,
     AuthModule,
     HomeModule,
     UserModule,
     CoreModule,
+    UnifiedMaterialModule,
     FlexLayoutModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule.enablePersistence(),

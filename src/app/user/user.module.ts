@@ -13,24 +13,20 @@ import {FlexLayoutModule} from '@angular/flex-layout';
 import {AngularFireStorageModule} from 'angularfire2/storage';
 import { UserService } from './shared/user.service';
 import {AngularFirestoreModule} from 'angularfire2/firestore';
+import {UnifiedMaterialModule} from '../unified-material.module';
 
 @NgModule({
   imports: [
     CommonModule,
     CoreModule,
     FormsModule,
-    MatFormFieldModule,
     ReactiveFormsModule,
-    MatInputModule,
-    MatGridListModule,
-    MatListModule,
     MatButtonModule,
-    MatCardModule,
-    MatIconModule,
-    FlexLayoutModule,
     AngularFireStorageModule,
     AngularFirestoreModule,
-    RouterModule
+    RouterModule,
+    FlexLayoutModule,
+    UnifiedMaterialModule,
   ],
   declarations: [ProfileComponent, NewUserComponent],
   providers: [UserService]

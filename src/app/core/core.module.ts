@@ -14,19 +14,19 @@ import { AutofocusDirective } from './directives/autofocus.directive';
 import { SnackMessengerService } from './message-handling/snack-messenger.service';
 import { ErrorService } from './error-handling/error.service';
 import { FrannyCapsLockDirective } from './directives/franny-caps-lock.directive';
+import { UnifiedMaterialModule } from '../unified-material.module';
 
 @NgModule({
   imports: [
     CommonModule,
-    MatToolbarModule,
     RouterModule,
-    MatButtonModule,
-    MatIconModule,
-    FlexLayoutModule,
+    UnifiedMaterialModule,
+    MatToolbarModule,
     MatSidenavModule,
-    MatListModule,
-    MatIconModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    UnifiedMaterialModule,
+    FlexLayoutModule
+
   ],
   declarations: [
     PageNotFoundComponent,
