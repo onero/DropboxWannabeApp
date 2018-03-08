@@ -5,6 +5,7 @@ import {LoginComponent} from './auth/login/login.component';
 import {ProfileComponent} from './user/profile/profile.component';
 import {AuthGuard} from './auth/auth.guard';
 import {PageNotFoundComponent} from './core/page-not-found/page-not-found.component';
+import {LoggedInGuard} from './auth/logged-in.guard';
 
 export const AppRoutes = RouterModule.forRoot(
   [
@@ -19,11 +20,13 @@ export const AppRoutes = RouterModule.forRoot(
     },
     {
       path: 'login',
-      component: LoginComponent
+      component: LoginComponent,
+      canActivate: [LoggedInGuard]
     },
     {
       path: 'new-user',
-      component: NewUserComponent
+      component: NewUserComponent,
+      canActivate: [LoggedInGuard]
     },
     {
       path: 'profile',

@@ -13,6 +13,7 @@ import { AuthGuard } from './auth.guard';
 import { AuthService } from './auth.service';
 import {AngularFireAuthModule} from 'angularfire2/auth';
 import {AngularFirestoreModule} from 'angularfire2/firestore';
+import { LoggedInGuard } from './logged-in.guard';
 
 @NgModule({
   imports: [
@@ -33,6 +34,6 @@ import {AngularFirestoreModule} from 'angularfire2/firestore';
     RouterModule
   ],
   declarations: [LoginComponent],
-  providers: [AuthGuard, AuthService]
+  providers: [AuthGuard, AuthService, LoggedInGuard]
 })
 export class AuthModule { }
