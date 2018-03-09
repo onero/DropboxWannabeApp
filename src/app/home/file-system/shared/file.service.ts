@@ -29,6 +29,12 @@ export class FileService {
     return this.storage.upload(path, file);
   }
 
+  uploadUniqueFile(file: File, specificFileName?: string): AngularFireUploadTask {
+    const username = this.authService.getUsername();
+    const path = `${username}/${specificFileName || file.name}`;
+    return this.storage.upload(path, file);
+  }
+
   updateCollection(path: string) {
     const userId = this.authService.getUID();
     const item = {userId, path};

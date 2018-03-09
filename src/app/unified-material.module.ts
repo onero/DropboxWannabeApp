@@ -7,7 +7,7 @@ import {
   MatGridListModule,
   MatIconModule,
   MatInputModule,
-  MatListModule
+  MatListModule, MatTooltipModule
 } from '@angular/material';
 
 @NgModule({
@@ -19,7 +19,8 @@ import {
     MatButtonModule,
     MatCardModule,
     MatIconModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    MatTooltipModule
   ],
   declarations: [
   ],
@@ -31,7 +32,8 @@ import {
     MatButtonModule,
     MatCardModule,
     MatIconModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    MatTooltipModule
   ]
 })
 export class UnifiedMaterialModule {

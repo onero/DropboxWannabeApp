@@ -15,6 +15,7 @@ import { SnackMessengerService } from './message-handling/snack-messenger.servic
 import { ErrorService } from './error-handling/error.service';
 import { FrannyCapsLockDirective } from './directives/franny-caps-lock.directive';
 import { UnifiedMaterialModule } from '../unified-material.module';
+import {DropZoneDirective} from './directives/drop-zone.directive';
 
 @NgModule({
   imports: [
@@ -26,7 +27,6 @@ import { UnifiedMaterialModule } from '../unified-material.module';
     MatSnackBarModule,
     UnifiedMaterialModule,
     FlexLayoutModule
-
   ],
   declarations: [
     PageNotFoundComponent,
@@ -34,13 +34,15 @@ import { UnifiedMaterialModule } from '../unified-material.module';
     FooterComponent,
     SideNavComponent,
     AutofocusDirective,
-    FrannyCapsLockDirective],
+    FrannyCapsLockDirective,
+    DropZoneDirective],
   exports: [
     NavbarComponent,
     FooterComponent,
     SideNavComponent,
     AutofocusDirective,
-    FrannyCapsLockDirective
+    FrannyCapsLockDirective,
+    DropZoneDirective
   ],
   providers: [SnackMessengerService, ErrorService]
 })

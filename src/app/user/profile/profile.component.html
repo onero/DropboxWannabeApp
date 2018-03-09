@@ -2,8 +2,15 @@
      fxLayoutAlign="center">
   <mat-card fxFlex="80">
     <mat-card-header>
-      <img mat-card-avatar
-           [src]=getProfileSrc()
+      <img appDropZone
+           (hovered)="hovering($event)"
+           [@imageHover]="isHovering ? 'hoveringImage' : 'notHoveringImage'"
+           (@imageHover.done)="changePic($event)"
+           (dropped)="uploadNewImage($event)"
+           matTooltipPosition="below"
+           matTooltip="Drop new image here or click me to select!"
+           mat-card-avatar
+           [src]=profilePic
            alt="Profile photo">
       <mat-card-title>{{user?.username}}</mat-card-title>
       <mat-card-subtitle>{{user?.email}}</mat-card-subtitle>
