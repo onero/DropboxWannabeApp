@@ -5,7 +5,8 @@
     <h3 fxFlexAlign="center">Images</h3>
     <ngx-gallery
       [options]="galleryOptions"
-      [images]="galleryImages">
+      [images]="galleryImages"
+    (change)="setCurrentImageIndex($event)">
     </ngx-gallery>
   </ng-template>
 

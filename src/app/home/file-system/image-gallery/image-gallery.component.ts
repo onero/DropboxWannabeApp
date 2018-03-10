@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {NgxGalleryImage, NgxGalleryOptions} from 'ngx-gallery';
+import {NgxGalleryAction, NgxGalleryAnimation, NgxGalleryImage, NgxGalleryOptions} from 'ngx-gallery';
 import {Observable} from 'rxjs/Observable';
 import {FileService} from '../shared/file.service';
 import {Ng4LoadingSpinnerService} from 'ng4-loading-spinner';
@@ -9,13 +9,14 @@ import {Ng4LoadingSpinnerService} from 'ng4-loading-spinner';
   templateUrl: './image-gallery.component.html',
   styleUrls: ['./image-gallery.component.scss']
 })
-export class ImageGalleryComponent implements OnInit{
+export class ImageGalleryComponent implements OnInit {
 
   @Input()
   files: Observable<any[]>;
   galleryOptions: NgxGalleryOptions[];
   galleryImages: NgxGalleryImage[];
   isLoading = false;
+  currentImageIndex = 0;
 
   constructor(private fileService: FileService,
               private spinnerService: Ng4LoadingSpinnerService) {
@@ -27,8 +28,24 @@ export class ImageGalleryComponent implements OnInit{
     this.files = this.fileService.getCollection().valueChanges();
     this.galleryImages = [];
     this.galleryOptions = [
-      {'imageSize': 'contain'},
       {
+        previewCloseOnClick: true,
+        previewCloseOnEsc: true,
+        previewAutoPlay: true,
+        previewAutoPlayPauseOnHover: true,
+        previewKeyboardNavigation: true,
+        imageAnimation: NgxGalleryAnimation.Slide,
+        imageActions: [{
+          icon: 'fa fa-trash',
+          titleText: 'Delete Image',
+          onClick: () => {
+            const currentImage = this.galleryImages[this.currentImageIndex];
+            // TODO ALH: Delete file from storage and user uploads collection!
+          }
+        }]
+      },
+      {
+        'imageSize': 'contain',
         'breakpoint': 500,
         'width': '300px',
         'height': '300px',
@@ -54,5 +71,9 @@ export class ImageGalleryComponent implements OnInit{
       this.spinnerService.hide();
       this.isLoading = false;
     });
+  }
+
+  setCurrentImageIndex(event: { index: number; image: NgxGalleryImage }) {
+    this.currentImageIndex = event.index;
   }
 }
