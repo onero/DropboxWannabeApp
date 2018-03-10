@@ -8,6 +8,8 @@ import {Subscription} from 'rxjs/Subscription';
 import {UserService} from '../shared/user.service';
 import {ErrorService} from '../../core/error-handling/error.service';
 import {hoverAnimation} from '../../shared/animations/hover.animation';
+import {ConfirmDeleteComponent} from '../../shared/dialogs/confirm-delete/confirm-delete.component';
+import {MatDialog} from '@angular/material';
 
 @Component({
   selector: 'app-profile',
@@ -27,7 +29,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
               private snack: SnackMessengerService,
               private errorService: ErrorService,
               private fileService: FileService,
-              private userService: UserService) {
+              private userService: UserService,
+              private dialog: MatDialog) {
     this.profileForm = fb.group({
       firstName: '',
       middleName: '',
@@ -92,7 +95,23 @@ export class ProfileComponent implements OnInit, OnDestroy {
   }
 
   deleteUser() {
-    // TODO ALH: Fix!
-    // this.authService.deleteUser();
+    this.dialog.open(ConfirmDeleteComponent)
+      .afterClosed()
+      .subscribe(userResponse => {
+        if (userResponse === 'yes') {
+          // TODO ALH: Delete user files!
+          // TODO ALH: Delete user from collection!
+          // this.userService.deleteUser(this.user);
+          //TODO ALH: Delete auth User
+        }
+      });
   }
+
+  unchanged(): boolean {
+    const model = this.profileForm.value as User;
+    return model.firstName === this.user.firstName &&
+      model.middleName === this.user.middleName &&
+      model.lastName === this.user.lastName;
+  }
+
 }

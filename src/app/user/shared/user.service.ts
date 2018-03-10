@@ -29,7 +29,6 @@ export class UserService {
   }
 
   deleteUser(user: User): Promise<any> {
-    // TODO ALH: Delete user files!
     return this.afs.doc(`users/${user.uid}`).delete();
   }
 

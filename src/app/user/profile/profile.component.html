@@ -46,14 +46,14 @@
           <button mat-raised-button
                   color="primary"
                   type="submit"
-                  [disabled]="profileForm.invalid">
+                  [disabled]="profileForm.invalid || unchanged()">
             Save
           </button>
         </div>
       </form>
     </mat-card-content>
     <mat-card-actions>
-      <button mat-button
+      <button matTooltip="Would hate to see you go!" class="deleteButton" mat-button
               (click)="deleteUser()">Delete Account</button>
     </mat-card-actions>
   </mat-card>
