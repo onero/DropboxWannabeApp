@@ -14,7 +14,8 @@ import {AngularFireModule} from 'angularfire2';
 import {environment} from '../environments/environment';
 import {Ng4LoadingSpinnerModule} from 'ng4-loading-spinner';
 import {AngularFirestoreModule} from 'angularfire2/firestore';
-import {UnifiedMaterialModule} from './unified-material.module';
+import {UnifiedMaterialModule} from './shared/styling/unified-material.module';
+import { SharedModule } from './shared/shared.module';
 
 
 @NgModule({
@@ -29,8 +30,7 @@ import {UnifiedMaterialModule} from './unified-material.module';
     HomeModule,
     UserModule,
     CoreModule,
-    UnifiedMaterialModule,
-    FlexLayoutModule,
+    SharedModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule.enablePersistence(),
     Ng4LoadingSpinnerModule.forRoot()

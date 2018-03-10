@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
-import {fadeInAnimation} from '../../core/animations/fade-in.animation';
+import {fadeInAnimation} from '../../shared/animations/fade-in.animation';
 import {environment} from '../../../environments/environment';
 import {AuthService} from '../../auth/shared/auth.service';
 import {SnackMessengerService} from '../../core/message-handling/snack-messenger.service';

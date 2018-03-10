@@ -7,7 +7,7 @@ import {AngularFireUploadTask} from 'angularfire2/storage';
 import {Subscription} from 'rxjs/Subscription';
 import {UserService} from '../shared/user.service';
 import {ErrorService} from '../../core/error-handling/error.service';
-import {hoverAnimation} from '../../core/animations/hover.animation';
+import {hoverAnimation} from '../../shared/animations/hover.animation';
 
 @Component({
   selector: 'app-profile',
@@ -58,7 +58,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
     const updatedUserModel = this.profileForm.value as User;
     updatedUserModel.uid = this.user.uid;
     this.userService.updateUser(updatedUserModel)
-      .then(() => this.snack.displaySnack('User Created', 2))
+      .then(() => this.snack.displaySnack('User Updated', 2))
       .catch(error => this.errorService.displayError(error.message));
   }
 
