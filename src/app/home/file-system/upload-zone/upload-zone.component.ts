@@ -39,10 +39,8 @@ export class UploadZoneComponent implements OnInit {
     this.uploadIsActive = true;
 
     this.task.then(() => {
-      let urlString: string;
       this.downloadURL.subscribe(value => {
-        urlString = value;
-        this.fileService.updateCollection(urlString);
+        this.fileService.updateCollection(value);
         this.uploadIsActive = false;
       });
     })

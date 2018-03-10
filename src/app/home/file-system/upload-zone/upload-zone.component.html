@@ -1,6 +1,6 @@
 <div fxLayout="column">
   <div class="dropzone"
-       fxFlex="20"
+       fxFlex="50"
        appDropZone
        (hovered)="toggleHover($event)"
        (dropped)="startUpload($event)"
@@ -9,10 +9,9 @@
     <!--FILE DROP CONTENT-->
     <div fxFlex
          fxFlexAlign="center"
-         fxFlexOffset="10">
+         fxFlexOffset="20">
       <h3>Drop Zone</h3>
-
-      <input class="file-input" type="file" (change)="startUpload($event.target.files)">
+      <input class="file-input" type="file" (change)="startUpload($event)">
     </div>
   </div>
 

@@ -81,9 +81,11 @@ export class ProfileComponent implements OnInit, OnDestroy {
       uploadTask.then(() => {
         uploadTask.downloadURL().subscribe(value => {
           this.user.profilePicSrc = value;
-          this.userService.updateUser(this.user);
+          this.userService.updateUser(this.user)
+            .catch(reason => this.errorService.displayError(reason));
         });
-      });
+      })
+        .catch(reason => this.errorService.displayError(reason));
     } else {
       this.snack.displaySnack('You need to drop a single png or jpeg image', 2);
     }

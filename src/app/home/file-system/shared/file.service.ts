@@ -39,7 +39,7 @@ export class FileService {
     const userId = this.authService.getUID();
     const item = {userId, path};
     this.getCollection().add(item)
-      .then(() => console.log('Updated!'));
+      .catch(reason => console.log(reason));
   }
 
 }
