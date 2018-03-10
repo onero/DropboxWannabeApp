@@ -4,6 +4,8 @@ import {Observable} from 'rxjs/Observable';
 import {FileService} from '../shared/file.service';
 import {Ng4LoadingSpinnerService} from 'ng4-loading-spinner';
 import {UserService} from '../../../user/shared/user.service';
+import {MatDialog} from '@angular/material';
+import {ConfirmDeleteComponent} from '../../../shared/dialogs/confirm-delete/confirm-delete.component';
 
 @Component({
   selector: 'app-image-gallery',
@@ -20,7 +22,8 @@ export class ImageGalleryComponent implements OnInit {
   currentImageIndex = 0;
 
   constructor(private fileService: FileService,
-              private spinnerService: Ng4LoadingSpinnerService) {
+              private spinnerService: Ng4LoadingSpinnerService,
+              private dialog: MatDialog) {
   }
 
   ngOnInit() {
@@ -41,7 +44,13 @@ export class ImageGalleryComponent implements OnInit {
           titleText: 'Delete Image',
           onClick: () => {
             const currentImagePath: string = this.galleryImages[this.currentImageIndex].url;
-            this.fileService.deleteFileByPath(currentImagePath);
+            this.dialog.open(ConfirmDeleteComponent)
+              .afterClosed()
+              .subscribe(userResponse => {
+                if (userResponse === 'yes') {
+                  this.fileService.deleteFileByPath(currentImagePath);
+                }
+              });
           }
         }]
       },

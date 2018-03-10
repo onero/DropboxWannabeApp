@@ -2,7 +2,7 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {
   MatButtonModule,
-  MatCardModule,
+  MatCardModule, MatDialogModule,
   MatFormFieldModule,
   MatGridListModule,
   MatIconModule,
@@ -20,7 +20,8 @@ import {
     MatCardModule,
     MatIconModule,
     MatFormFieldModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatDialogModule
   ],
   declarations: [
   ],
@@ -33,7 +34,8 @@ import {
     MatCardModule,
     MatIconModule,
     MatFormFieldModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatDialogModule
   ]
 })
 export class UnifiedMaterialModule {
