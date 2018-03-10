@@ -45,6 +45,7 @@ export class FileService {
   }
 
   deleteFileByPath(path: string) {
+    this.storage.storage.refFromURL(path).delete();
     this.afs.collection(this.filesCollectionPath)
       .doc(this.username).collection(this.userUploadsPath, ref => ref.where('path', '==', path))
       .snapshotChanges()
