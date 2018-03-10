@@ -3,6 +3,7 @@ import {NgxGalleryAction, NgxGalleryAnimation, NgxGalleryImage, NgxGalleryOption
 import {Observable} from 'rxjs/Observable';
 import {FileService} from '../shared/file.service';
 import {Ng4LoadingSpinnerService} from 'ng4-loading-spinner';
+import {UserService} from '../../../user/shared/user.service';
 
 @Component({
   selector: 'app-image-gallery',
@@ -39,8 +40,8 @@ export class ImageGalleryComponent implements OnInit {
           icon: 'fa fa-trash',
           titleText: 'Delete Image',
           onClick: () => {
-            const currentImage = this.galleryImages[this.currentImageIndex];
-            // TODO ALH: Delete file from storage and user uploads collection!
+            const currentImagePath: string = this.galleryImages[this.currentImageIndex].url;
+            this.fileService.deleteFileByPath(currentImagePath);
           }
         }]
       },
@@ -64,7 +65,8 @@ export class ImageGalleryComponent implements OnInit {
         const image = {
           small: file.path,
           medium: file.path,
-          big: file.path
+          big: file.path,
+          url: file.path
         };
         this.galleryImages.push(image);
       });
