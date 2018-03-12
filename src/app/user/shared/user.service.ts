@@ -1,15 +1,21 @@
 import {Injectable} from '@angular/core';
 import {User} from './user.model';
-import {AngularFirestore} from 'angularfire2/firestore';
+import {AngularFirestore, AngularFirestoreCollection} from 'angularfire2/firestore';
 import {Observable} from 'rxjs/Observable';
 import {AuthService} from '../../auth/shared/auth.service';
 import 'rxjs/add/operator/first';
+import {SnackMessengerService} from '../../core/message-handling/snack-messenger.service';
 
 @Injectable()
 export class UserService {
 
+  private filesCollectionPath = 'files';
+  private userUploadsPath = 'uploads';
+  private username;
+
   constructor(private afs: AngularFirestore,
-              private authService: AuthService) {
+              private authService: AuthService,
+              private snack: SnackMessengerService) {
   }
 
   getUser(): Observable<User> {
@@ -26,6 +32,32 @@ export class UserService {
             return dbUser;
           });
       });
+  }
+
+  getUserCollection(): AngularFirestoreCollection<any> {
+    this.username = this.authService.getUsername();
+    return this.afs.collection(this.filesCollectionPath)
+      .doc(this.username).collection(this.userUploadsPath);
+  }
+
+  updateUserCollection(path: string) {
+    const userId = this.authService.getUID();
+    const item = {userId, path};
+    this.getUserCollection().add(item)
+      .catch(reason => console.log(reason));
+  }
+
+  deleteFileFromUserCollection(path: string) {
+    this.afs.collection(this.filesCollectionPath)
+      .doc(this.username).collection(this.userUploadsPath, ref => ref.where('path', '==', path))
+      .snapshotChanges()
+      .subscribe(result => {
+        result.map(info => {
+          info.payload.doc.ref.delete()
+            .then(() => this.snack.displaySnack('Deleted!', 2));
+        });
+      });
+    return null;
   }
 
   deleteUser(user: User): Promise<any> {

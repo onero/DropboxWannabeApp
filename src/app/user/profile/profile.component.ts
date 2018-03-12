@@ -2,7 +2,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {User} from '../shared/user.model';
 import {SnackMessengerService} from '../../core/message-handling/snack-messenger.service';
-import {FileService} from '../../home/file-system/shared/file.service';
+import {StorageService} from '../../home/file-system/shared/storage.service';
 import {AngularFireUploadTask} from 'angularfire2/storage';
 import {Subscription} from 'rxjs/Subscription';
 import {UserService} from '../shared/user.service';
@@ -28,7 +28,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   constructor(private fb: FormBuilder,
               private snack: SnackMessengerService,
               private errorService: ErrorService,
-              private fileService: FileService,
+              private fileService: StorageService,
               private userService: UserService,
               private dialog: MatDialog) {
     this.profileForm = fb.group({

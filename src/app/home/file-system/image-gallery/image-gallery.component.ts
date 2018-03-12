@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {NgxGalleryAction, NgxGalleryAnimation, NgxGalleryImage, NgxGalleryOptions} from 'ngx-gallery';
 import {Observable} from 'rxjs/Observable';
-import {FileService} from '../shared/file.service';
+import {StorageService} from '../shared/storage.service';
 import {Ng4LoadingSpinnerService} from 'ng4-loading-spinner';
 import {UserService} from '../../../user/shared/user.service';
 import {MatDialog} from '@angular/material';
@@ -21,15 +21,16 @@ export class ImageGalleryComponent implements OnInit {
   isLoading = false;
   currentImageIndex = 0;
 
-  constructor(private fileService: FileService,
-              private spinnerService: Ng4LoadingSpinnerService,
+  constructor(private spinnerService: Ng4LoadingSpinnerService,
+              private userService: UserService,
+              private storageService: StorageService,
               private dialog: MatDialog) {
   }
 
   ngOnInit() {
     this.spinnerService.show();
     this.isLoading = true;
-    this.files = this.fileService.getCollection().valueChanges();
+    this.files = this.userService.getUserCollection().valueChanges();
     this.galleryImages = [];
     this.galleryOptions = [
       {
@@ -48,7 +49,10 @@ export class ImageGalleryComponent implements OnInit {
               .afterClosed()
               .subscribe(userResponse => {
                 if (userResponse === 'yes') {
-                  this.fileService.deleteFileByPath(currentImagePath);
+                  this.storageService.deleteFileByPath(currentImagePath)
+                    .then(() => {
+                      this.userService.deleteFileFromUserCollection(currentImagePath);
+                    });
                 }
               });
           }

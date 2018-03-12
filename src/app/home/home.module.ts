@@ -2,7 +2,7 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FileSystemComponent} from './file-system/file-system.component';
 import {CoreModule} from '../core/core.module';
-import {FileService} from './file-system/shared/file.service';
+import {StorageService} from './file-system/shared/storage.service';
 import {MatButtonModule, MatCardModule, MatGridListModule, MatIconModule} from '@angular/material';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import {AngularFireStorageModule} from 'angularfire2/storage';
@@ -28,6 +28,6 @@ import {SharedModule} from '../shared/shared.module';
     NgxGalleryModule
   ],
   declarations: [FileSystemComponent, FileSizePipe, ImageGalleryComponent, UploadZoneComponent],
-  providers: [FileService]
+  providers: [StorageService]
 })
 export class HomeModule { }

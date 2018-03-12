@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {AngularFireUploadTask} from 'angularfire2/storage';
 import {Observable} from 'rxjs/Observable';
-import {FileService} from '../shared/file.service';
+import {StorageService} from '../shared/storage.service';
 import {ErrorService} from '../../../core/error-handling/error.service';
+import {UserService} from '../../../user/shared/user.service';
 
 @Component({
   selector: 'app-upload-zone',
@@ -23,8 +24,9 @@ export class UploadZoneComponent implements OnInit {
 
 
 
-  constructor(private fileService: FileService,
-              private errorService: ErrorService) {}
+  constructor(private fileService: StorageService,
+              private errorService: ErrorService,
+              private userService: UserService) {}
 
   ngOnInit() {
   }
@@ -39,8 +41,8 @@ export class UploadZoneComponent implements OnInit {
     this.uploadIsActive = true;
 
     this.task.then(() => {
-      this.downloadURL.subscribe(value => {
-        this.fileService.updateCollection(value);
+      this.downloadURL.subscribe(url => {
+        this.userService.updateUserCollection(url);
         this.uploadIsActive = false;
       });
     })

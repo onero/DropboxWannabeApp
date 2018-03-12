@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FileService} from './shared/file.service';
+import {StorageService} from './shared/storage.service';
 import {Observable} from 'rxjs/Observable';
 import {AngularFireUploadTask} from 'angularfire2/storage';
 import {NgxGalleryAnimation, NgxGalleryImage, NgxGalleryOptions} from 'ngx-gallery';
