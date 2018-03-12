@@ -24,6 +24,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   userSubscription: Subscription;
   isHovering: boolean;
   profilePic: string;
+  srcLoaded: boolean;
 
   constructor(private fb: FormBuilder,
               private snack: SnackMessengerService,
@@ -65,26 +66,20 @@ export class ProfileComponent implements OnInit, OnDestroy {
       .catch(error => this.errorService.displayError(error.message));
   }
 
-  changePic(event) {
-    if (event.toState === 'hoveringImage') {
-      this.profilePic = '/assets/cloud_upload.svg';
-    } else {
-      this.profilePic = (this.user && this.user.profilePicSrc !== null) ?
-        this.user.profilePicSrc :
-        '/assets/unknownProfile.png';
-    }
-  }
-
   uploadNewImage(fileList: FileList) {
     if (fileList &&
       fileList.length === 1 &&
       ['image/jpeg', 'image/png'].indexOf(fileList.item(0).type) > -1) {
+      this.srcLoaded = false;
       const file = fileList.item(0);
       const uploadTask: AngularFireUploadTask = this.fileService.uploadUniqueFile(file, 'profile_photo');
       uploadTask.then(() => {
         uploadTask.downloadURL().subscribe(value => {
           this.user.profilePicSrc = value;
           this.userService.updateUser(this.user)
+            .then(() => {
+              this.hovering(false);
+            })
             .catch(reason => this.errorService.displayError(reason));
         });
       })

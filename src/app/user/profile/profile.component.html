@@ -3,15 +3,17 @@
   <mat-card fxFlex="80">
     <mat-card-header>
       <img appDropZone
+           [hidden]="!srcLoaded"
            (hovered)="hovering($event)"
            [@imageHover]="isHovering ? 'hoveringImage' : 'notHoveringImage'"
-           (@imageHover.done)="changePic($event)"
            (dropped)="uploadNewImage($event)"
            matTooltipPosition="below"
            matTooltip="Drop new image (png/jpeg) here or click me to select!"
            mat-card-avatar
-           [src]=profilePic
+           (load)="srcLoaded = true"
+           [src]="isHovering ? '/assets/cloud_upload.svg' : profilePic"
            alt="Profile photo">
+      <mat-spinner mat-card-avatar [diameter]="40" *ngIf="!srcLoaded"></mat-spinner>
       <mat-card-title>{{user?.username}}</mat-card-title>
       <mat-card-subtitle>{{user?.email}}</mat-card-subtitle>
     </mat-card-header>
