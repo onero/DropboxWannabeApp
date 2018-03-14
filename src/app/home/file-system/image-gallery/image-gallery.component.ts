@@ -49,7 +49,7 @@ export class ImageGalleryComponent implements OnInit {
               .afterClosed()
               .subscribe(userResponse => {
                 if (userResponse === 'yes') {
-                  this.storageService.deleteFileByPath(currentImagePath)
+                  this.storageService.deleteFileByUrl(currentImagePath)
                     .then(() => {
                       this.userService.deleteFileFromUserCollection(currentImagePath);
                     });

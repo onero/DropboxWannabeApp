@@ -1,9 +1,7 @@
-import {Injectable, OnInit} from '@angular/core';
+import {Injectable} from '@angular/core';
 import {AngularFireStorage, AngularFireUploadTask} from 'angularfire2/storage';
 import {AuthService} from '../../../auth/shared/auth.service';
-import {AngularFirestore, AngularFirestoreCollection} from 'angularfire2/firestore';
-import {Observable} from 'rxjs/Observable';
-import {SnackMessengerService} from '../../../core/message-handling/snack-messenger.service';
+import {User} from '../../../user/shared/user.model';
 
 @Injectable()
 export class StorageService {
@@ -24,8 +22,14 @@ export class StorageService {
     return this.afStorage.upload(path, file);
   }
 
-  deleteFileByPath(path: string): Promise<any> {
+  deleteFileByUrl(path: string): Promise<any> {
     return this.afStorage.storage.refFromURL(path).delete();
   }
 
+  deleteProfilePic(user: User) {
+    const ref = this.afStorage.storage.ref(`${user.username}/profile_photo`);
+    if (ref) {
+      ref.delete();
+    }
+  }
 }

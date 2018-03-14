@@ -10,6 +10,7 @@ import {ErrorService} from '../../core/error-handling/error.service';
 import {hoverAnimation} from '../../shared/animations/hover.animation';
 import {ConfirmDeleteComponent} from '../../shared/dialogs/confirm-delete/confirm-delete.component';
 import {MatDialog} from '@angular/material';
+import {AuthService} from '../../auth/shared/auth.service';
 
 @Component({
   selector: 'app-profile',
@@ -29,8 +30,9 @@ export class ProfileComponent implements OnInit, OnDestroy {
   constructor(private fb: FormBuilder,
               private snack: SnackMessengerService,
               private errorService: ErrorService,
-              private fileService: StorageService,
+              private storageService: StorageService,
               private userService: UserService,
+              private authService: AuthService,
               private dialog: MatDialog) {
     this.profileForm = fb.group({
       firstName: '',
@@ -46,7 +48,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
         if (user.profilePicSrc) {
           this.profilePic = user.profilePicSrc;
         } else {
-          this.profilePic = 'assets/unknownProfile.png'
+          this.profilePic = 'assets/unknownProfile.png';
         }
         this.profileForm.patchValue(user);
       });
@@ -74,7 +76,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
       ['image/jpeg', 'image/png'].indexOf(fileList.item(0).type) > -1) {
       this.srcLoaded = false;
       const file = fileList.item(0);
-      const uploadTask: AngularFireUploadTask = this.fileService.uploadUniqueFile(file, 'profile_photo');
+      const uploadTask: AngularFireUploadTask = this.storageService.uploadUniqueFile(file, 'profile_photo');
       uploadTask.then(() => {
         uploadTask.downloadURL().subscribe(value => {
           this.user.profilePicSrc = value;
@@ -96,10 +98,32 @@ export class ProfileComponent implements OnInit, OnDestroy {
       .afterClosed()
       .subscribe(userResponse => {
         if (userResponse === 'yes') {
-          // TODO ALH: Delete user files!
-          // TODO ALH: Delete user from collection!
-          // this.userService.deleteUser(this.user);
-          //TODO ALH: Delete auth User
+          // Delete user profile pic
+          this.storageService.deleteProfilePic(this.user);
+          // Delete all user files
+          const userFileCollection = this.userService.getUserCollection();
+          userFileCollection.valueChanges()
+            .subscribe(files => {
+              files.forEach(file => {
+                this.storageService.deleteFileByUrl(file.path);
+              });
+              // Unsubscribe to avoid errors
+              this.userSubscription.unsubscribe();
+              // Delete user uploads from collection
+              this.userService.getUserCollection()
+                .snapshotChanges()
+                .subscribe(uploads => {
+                  uploads.forEach(doc => {
+                    doc.payload.doc.ref.delete();
+                  });
+                  // Delete user reference from DB
+                  this.userService.deleteUser(this.user)
+                    .then(() => {
+                      // Delete actual authUser
+                      this.authService.deleteAuthUser();
+                    });
+                });
+            });
         }
       });
   }

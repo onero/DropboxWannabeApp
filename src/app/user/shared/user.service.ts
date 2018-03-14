@@ -61,7 +61,10 @@ export class UserService {
   }
 
   deleteUser(user: User): Promise<any> {
-    return this.afs.doc(`users/${user.uid}`).delete();
+    return this.afs.doc(`files/${user.username}`).delete()
+      .then(() => {
+        return this.afs.doc(`users/${user.uid}`).delete();
+      });
   }
 
   updateUser(user: User): Promise<any> {
