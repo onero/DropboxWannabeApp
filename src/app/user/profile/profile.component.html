@@ -3,6 +3,7 @@
   <mat-card fxFlex="80">
     <mat-card-header>
       <img appDropZone
+           *ngIf="user"
            [hidden]="!srcLoaded"
            (hovered)="hovering($event)"
            [@imageHover]="isHovering ? 'hoveringImage' : 'notHoveringImage'"
