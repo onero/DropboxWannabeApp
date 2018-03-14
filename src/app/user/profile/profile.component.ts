@@ -130,6 +130,9 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   unchanged(): boolean {
     const model = this.profileForm.value as User;
+    if (!model.firstName) {
+      return true;
+    }
     return model.firstName === this.user.firstName &&
       model.middleName === this.user.middleName &&
       model.lastName === this.user.lastName;
