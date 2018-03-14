@@ -15,5 +15,14 @@ export class SnackMessengerService {
         extraClasses: ['adamino-snackbar']
       });
   }
+  displayErrorSnack(message: string, durationInSecs: number) {
+    return this.snack.open(message,
+      'ACKNOWLEDGED!',
+      {
+        duration: durationInSecs * 1000,
+        verticalPosition: 'top',
+        extraClasses: ['adamino-snackbar-error']
+      });
+  }
 
 }

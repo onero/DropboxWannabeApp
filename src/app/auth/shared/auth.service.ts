@@ -22,10 +22,6 @@ export class AuthService {
     return this.fireAuth.auth.currentUser.uid;
   }
 
-  getProfilePic(): string {
-    return this.fireAuth.auth.currentUser.photoURL || null;
-  }
-
   getAuthUser(): Observable<User> {
     return this.fireAuth.authState
       .map(authState => {

@@ -43,8 +43,10 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.userSubscription = this.userService.getUser()
       .subscribe(user => {
         this.user = user;
-        if (user.profilePicSrc !== null) {
+        if (user.profilePicSrc) {
           this.profilePic = user.profilePicSrc;
+        } else {
+          this.profilePic = 'assets/unknownProfile.png'
         }
         this.profileForm.patchValue(user);
       });

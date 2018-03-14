@@ -10,7 +10,7 @@ export class ErrorService {
   }
 
   displayError(errorMessage: string) {
-    this.snack.displaySnack(errorMessage, MessageDisplayLengthInSeconds);
+    this.snack.displayErrorSnack(errorMessage, MessageDisplayLengthInSeconds);
   }
 
 }

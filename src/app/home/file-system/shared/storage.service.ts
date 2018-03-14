@@ -8,24 +8,24 @@ import {SnackMessengerService} from '../../../core/message-handling/snack-messen
 @Injectable()
 export class StorageService {
 
-  constructor(private storage: AngularFireStorage,
+  constructor(private afStorage: AngularFireStorage,
               private authService: AuthService) {
   }
 
   uploadFile(file: File): AngularFireUploadTask {
     const username = this.authService.getUsername();
     const path = `${username}/${new Date().getTime()}_${file.name}`;
-    return this.storage.upload(path, file);
+    return this.afStorage.upload(path, file);
   }
 
   uploadUniqueFile(file: File, specificFileName?: string): AngularFireUploadTask {
     const username = this.authService.getUsername();
     const path = `${username}/${specificFileName || file.name}`;
-    return this.storage.upload(path, file);
+    return this.afStorage.upload(path, file);
   }
 
   deleteFileByPath(path: string): Promise<any> {
-    return this.storage.storage.refFromURL(path).delete();
+    return this.afStorage.storage.refFromURL(path).delete();
   }
 
 }

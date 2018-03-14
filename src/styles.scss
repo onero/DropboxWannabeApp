@@ -24,6 +24,10 @@ html, body {
 .adamino-snackbar {
   color: $orange;
 }
+.adamino-snackbar-error {
+  color: $red;
+  font-weight: bold;
+}
 
 .mat-sidenav-container, .mat-sidenav-content, .mat-tab-body-content {
   transform: none !important;
