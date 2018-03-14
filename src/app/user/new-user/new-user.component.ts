@@ -59,10 +59,14 @@ export class NewUserComponent implements OnInit {
     // Register new AuthUser
     this.authService.registerWithEmailAndPassword(userModel)
       .then(() => {
-        userModel.uid = this.authService.getUID();
-        userModel.username = this.authService.getUsername();
+        // Create user only with information needed for DB
+        const userForDB: User = {
+          username: userModel.username,
+          email: userModel.email
+        };
+        userForDB.uid = this.authService.getUID();
         // Add User to DB
-        this.userService.updateUser(userModel)
+        this.userService.updateUser(userForDB)
           .then(() => {
             this.router.navigateByUrl('profile')
               .then(() => {
