@@ -121,6 +121,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
                     .then(() => {
                       // Delete actual authUser
                       this.authService.deleteAuthUser();
+                      localStorage.clear();
                     });
                 });
             });
