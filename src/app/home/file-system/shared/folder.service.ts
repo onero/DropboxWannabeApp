@@ -10,7 +10,7 @@ export class FolderService {
   constructor(private afs: AngularFirestore) {
   }
 
-  getRootFolder(uid: string) {
+  getFolder(uid: string) {
     return this.afs.doc<FolderModel>(this.foldersPath + uid).valueChanges();
   }
 }

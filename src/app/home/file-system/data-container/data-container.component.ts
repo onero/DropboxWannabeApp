@@ -19,7 +19,7 @@ export class DataContainerComponent implements OnInit {
 
   ngOnInit() {
     const uid = this.authService.getUID();
-    this.folderService.getRootFolder(uid)
+    this.folderService.getFolder(uid)
       .subscribe(folder => {
         const rootFolder = folder as FolderModel;
         this.addFolder(rootFolder);
@@ -27,6 +27,7 @@ export class DataContainerComponent implements OnInit {
   }
 
   addFolder(folder: FolderModel) {
+    this.file = null;
     const folderAlreadyDisplayed = this.folders.find(displayedFolder => displayedFolder.uid === folder.uid);
     if (!folderAlreadyDisplayed) {
       this.folders.push(folder);
