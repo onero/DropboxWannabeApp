@@ -14,16 +14,16 @@
         </mat-list-item>
       </div>
 
-      <!--<div *ngIf="files">-->
-        <!--<h3 mat-subheader>Files</h3>-->
-        <!--<mat-list-item *ngFor="let file of files"-->
-                       <!--&lt;!&ndash;(click)="clickedFile.emit(file)">&ndash;&gt;-->
-          <!--<mat-icon mat-list-icon-->
-                    <!--color="primary">insert_photo</mat-icon>-->
-          <!--<h4 mat-line>{{file.displayName}}</h4>-->
-          <!--<p mat-line> {{file.created | date}} </p>-->
-        <!--</mat-list-item>-->
-      <!--</div>-->
+      <div *ngIf="currentFolder.files">
+        <h3 mat-subheader>Files</h3>
+        <mat-list-item *ngFor="let file of currentFolder.files">
+                       <!--(click)="clickedFile.emit(file)">-->
+          <mat-icon mat-list-icon
+                    color="primary">insert_photo</mat-icon>
+          <h4 mat-line>{{file.displayName}}</h4>
+          <p mat-line> {{file.created | date}} </p>
+        </mat-list-item>
+      </div>
       <!--<h4  *ngIf="!files && !folders">No folders or files yet</h4>-->
     </mat-nav-list>
   </mat-card-content>
