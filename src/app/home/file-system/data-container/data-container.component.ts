@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FolderModel} from '../shared/folder.model';
+import {FileModel} from '../shared/file.model';
 
 @Component({
   selector: 'app-data-container',
@@ -8,11 +9,13 @@ import {FolderModel} from '../shared/folder.model';
 })
 export class DataContainerComponent implements OnInit {
   folders: FolderModel[];
+  file: FileModel;
 
   constructor() {
   }
 
   ngOnInit() {
+    // TODO ALH: Remove for firestore integration!
     this.folders = [
       {
         displayName: 'root',
@@ -32,10 +35,6 @@ export class DataContainerComponent implements OnInit {
           {
             uid: '2',
             displayName: 'It Works!'
-          },
-          {
-            uid: '3',
-            displayName: 'It Really Does!'
           }
         ]
       }
@@ -49,4 +48,7 @@ export class DataContainerComponent implements OnInit {
     }
   }
 
+  selectFile(file: FileModel) {
+    this.file = file;
+  }
 }

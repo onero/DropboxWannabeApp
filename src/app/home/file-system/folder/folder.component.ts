@@ -1,5 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FolderModel} from '../shared/folder.model';
+import {FileModel} from '../shared/file.model';
 
 @Component({
   selector: 'app-folder',
@@ -13,10 +14,27 @@ export class FolderComponent implements OnInit {
   @Output()
   folderClicked = new EventEmitter<FolderModel>();
 
+  @Output()
+  fileClicked = new EventEmitter<FileModel>();
+
   constructor() {
   }
 
   ngOnInit() {
+  }
+
+  onFileClicked(File: FileModel) {
+    // TODO: ALH: Consider file service to get folder
+    const fileToSelect: FileModel = {
+      uid: '2',
+      url: 'https://firebasestorage.googleapis.com/v0/b/dropboxwannabe.appspot.com/o/adamino%2F1520653670895_Profil.jpg?alt=media&token=7f3eea89-00ec-4438-9cf8-2310bba92cba',
+      created: '3/10/2018',
+      displayName: 'Mr. Awesome',
+      fileName: 'mrAwesome.jpg',
+      size: 180,
+      type: 'image/jpeg'
+    };
+    this.fileClicked.emit(fileToSelect);
   }
 
   onFolderClicked(folder: FolderModel) {

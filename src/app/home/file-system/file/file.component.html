@@ -1,0 +1,37 @@
+<div fxLayout="column"
+     fxLayoutAlign="center"
+     fxFlexOffset="5"
+     [style.min-width]="'400px'"
+     *ngIf="currentFile">
+  <h4>{{currentFile.displayName}}</h4>
+  <div fxLayout="row">
+    <div>
+      <img (load)="srcLoaded = true"
+           [hidden]="!srcLoaded"
+           [style.max-width]="'100%'"
+           [src]="currentFile.url">
+      <mat-spinner
+        [style.max-width]="'100%'"
+        *ngIf="!srcLoaded"></mat-spinner>
+    </div>
+    <mat-list dense
+              fxFlex="40"
+              fxFlexAlign="start"
+              fxFlexOffset="1">
+      <div>
+        <mat-list-item> Created: {{currentFile.created}}</mat-list-item>
+        <mat-list-item> Filename: {{currentFile.fileName}}</mat-list-item>
+        <mat-list-item> Size: {{currentFile.size / 1000}} MB</mat-list-item>
+      </div>
+    </mat-list>
+  </div>
+  <button mat-raised-button
+          color="warn"
+          fxFlexAlign="start"
+          fxFlexOffset="1">
+    <!--(click)="delete()"-->
+    <mat-icon>delete</mat-icon>
+    Delete
+  </button>
+  <div *ngIf="!currentFile">Loading...</div>
+</div>

@@ -1,8 +1,12 @@
 <div fxLayout="row">
   <app-folder
     (folderClicked)="addFolder($event)"
+    (fileClicked)="selectFile($event)"
     *ngFor="let folder of folders"
     [currentFolder]="folder">
-    <!--(clickedFile)="clickedFile.emit($event)"-->
   </app-folder>
+  <app-file
+  *ngIf="file"
+  [currentFile]="file">
+  </app-file>
 </div>

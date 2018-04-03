@@ -16,8 +16,8 @@
 
       <div *ngIf="currentFolder.files">
         <h3 mat-subheader>Files</h3>
-        <mat-list-item *ngFor="let file of currentFolder.files">
-                       <!--(click)="clickedFile.emit(file)">-->
+        <mat-list-item *ngFor="let file of currentFolder.files"
+                       (click)="onFileClicked(file)">
           <mat-icon mat-list-icon
                     color="primary">insert_photo</mat-icon>
           <h4 mat-line>{{file.displayName}}</h4>
