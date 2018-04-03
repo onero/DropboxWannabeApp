@@ -13,7 +13,7 @@
         <mat-list-item *ngFor="let folder of currentFolder.subFolders"
                        (click)="onSubFolderClicked(folder)">
           <mat-icon mat-list-icon
-                    color="accent">folder</mat-icon>
+          class="adamino-accent">folder</mat-icon>
           <h4 mat-line>{{folder.displayName}}</h4>
         </mat-list-item>
       </div>
@@ -28,7 +28,9 @@
           <p mat-line> {{file.created | date}} </p>
         </mat-list-item>
       </div>
-      <!--<h4  *ngIf="!files && !folders">No folders or files yet</h4>-->
     </mat-nav-list>
   </mat-card-content>
+  <mat-card-actions>
+    <h4  *ngIf="!file && !currentFolder.subFolders && !currentFolder.files">No folders or files yet</h4>
+  </mat-card-actions>
 </mat-card>
