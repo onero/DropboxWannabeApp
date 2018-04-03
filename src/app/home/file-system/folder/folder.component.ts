@@ -24,7 +24,6 @@ export class FolderComponent implements OnInit {
   }
 
   onFileClicked(file: FileModel) {
-    // TODO: ALH: Consider file service to get folder
     this.fileClicked.emit(file);
   }
 
