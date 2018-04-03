@@ -70,6 +70,9 @@ export class FolderComponent implements OnInit {
           size: file.size,
           displayName: file.name
         };
+        if (!this.currentFolder.files) {
+          this.currentFolder.files = [];
+        }
         this.currentFolder.files.push(fileForDB);
         this.folderService.addFileToFolder(this.currentFolder.uid, this.currentFolder.files);
         // TODO ALH: Add file to DB files/
