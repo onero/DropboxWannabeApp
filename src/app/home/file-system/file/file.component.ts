@@ -10,6 +10,7 @@ export class FileComponent implements OnInit {
   @Input()
   currentFile: FileModel;
 
+  isImage: boolean;
   srcLoaded: boolean;
 
   constructor() { }
@@ -17,4 +18,16 @@ export class FileComponent implements OnInit {
   ngOnInit() {
   }
 
+  checkForImage(): boolean {
+    return this.currentFile.type === 'image/jpeg';
+  }
+
+  getFileSrc() {
+    const fileIsImage = this.checkForImage();
+    if (fileIsImage) {
+      return this.currentFile.url;
+    } else {
+      return '/assets/file_img.png';
+    }
+  }
 }

@@ -9,7 +9,7 @@
       <img (load)="srcLoaded = true"
            [hidden]="!srcLoaded"
            [style.max-width]="'100%'"
-           [src]="currentFile.url">
+           [src]="getFileSrc()">
       <mat-spinner
         [style.max-width]="'100%'"
         *ngIf="!srcLoaded"></mat-spinner>
