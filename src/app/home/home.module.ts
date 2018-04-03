@@ -15,6 +15,9 @@ import { UploadZoneComponent } from './file-system/upload-zone/upload-zone.compo
 import {Ng4LoadingSpinnerModule} from 'ng4-loading-spinner';
 import {UnifiedMaterialModule} from '../shared/styling/unified-material.module';
 import {SharedModule} from '../shared/shared.module';
+import { FileService } from './file-system/shared/file.service';
+import { FolderService } from './file-system/shared/folder.service';
+import { FolderComponent } from './file-system/folder/folder.component';
 
 @NgModule({
   imports: [
@@ -27,7 +30,7 @@ import {SharedModule} from '../shared/shared.module';
     MatGridListModule,
     NgxGalleryModule
   ],
-  declarations: [FileSystemComponent, FileSizePipe, ImageGalleryComponent, UploadZoneComponent],
-  providers: [StorageService]
+  declarations: [FileSystemComponent, FileSizePipe, ImageGalleryComponent, UploadZoneComponent, FolderComponent],
+  providers: [StorageService, FileService, FolderService]
 })
 export class HomeModule { }
