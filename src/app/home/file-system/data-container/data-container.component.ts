@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {FolderModel} from '../shared/folder.model';
 import {FileModel} from '../shared/file.model';
+import {FolderService} from '../shared/folder.service';
+import {AuthService} from '../../../auth/shared/auth.service';
 
 @Component({
   selector: 'app-data-container',
@@ -8,37 +10,20 @@ import {FileModel} from '../shared/file.model';
   styleUrls: ['./data-container.component.scss']
 })
 export class DataContainerComponent implements OnInit {
-  folders: FolderModel[];
+  folders: FolderModel[] = [];
   file: FileModel;
 
-  constructor() {
+  constructor(private authService: AuthService,
+              private folderService: FolderService) {
   }
 
   ngOnInit() {
-    // TODO ALH: Remove for firestore integration!
-    this.folders = [
-      {
-        displayName: 'root',
-        uid: '1',
-        files: [
-          {
-            uid: '1',
-            url: 'https://firebasestorage.googleapis.com/v0/b/dropboxwannabe.appspot.com/o/adamino%2F1520711029667_the_hobbit_the_battle_of_the_five_armies-wide.jpg?alt=media&token=bc01f8d6-ac9f-4a6a-9a4c-15b21a28a601',
-            created: '3/10/2018',
-            displayName: 'Awesome',
-            fileName: 'awesome.jpg',
-            size: 3450,
-            type: 'image/jpeg'
-          }
-        ],
-        subFolders: [
-          {
-            uid: '2',
-            displayName: 'It Works!'
-          }
-        ]
-      }
-    ];
+    const uid = this.authService.getUID();
+    this.folderService.getRootFolder(uid)
+      .subscribe(folder => {
+        const rootFolder = folder as FolderModel;
+        this.addFolder(rootFolder);
+      });
   }
 
   addFolder(folder: FolderModel) {

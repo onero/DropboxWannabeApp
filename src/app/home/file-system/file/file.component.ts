@@ -10,7 +10,6 @@ export class FileComponent implements OnInit {
   @Input()
   currentFile: FileModel;
 
-  isImage: boolean;
   srcLoaded: boolean;
 
   constructor() { }
