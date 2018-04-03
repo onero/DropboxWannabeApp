@@ -1,4 +1,4 @@
-<mat-card fxLayout="column" fxFill>
+<mat-card *ngIf="currentFolder" fxLayout="column" fxFill>
   <mat-card-header>
     <mat-card-title>{{currentFolder.displayName}}</mat-card-title>
   </mat-card-header>
@@ -6,8 +6,8 @@
     <mat-nav-list>
       <div *ngIf="currentFolder.subFolders">
         <h3 mat-subheader>Folders</h3>
-        <mat-list-item *ngFor="let folder of currentFolder.subFolders">
-                       <!--(click)="clickedFolder.emit(folder)">-->
+        <mat-list-item *ngFor="let folder of currentFolder.subFolders"
+                       (click)="onFolderClicked(folder)">
           <mat-icon mat-list-icon
                     color="accent">folder</mat-icon>
           <h4 mat-line>{{folder.displayName}}</h4>
