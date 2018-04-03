@@ -2,11 +2,11 @@ import {Component, Input, OnInit} from '@angular/core';
 import {FileModel} from '../shared/file.model';
 
 @Component({
-  selector: 'app-file',
-  templateUrl: './file.component.html',
-  styleUrls: ['./file.component.scss']
+  selector: 'app-file-column',
+  templateUrl: './file-column.component.html',
+  styleUrls: ['./file-column.component.scss']
 })
-export class FileComponent implements OnInit {
+export class FileColumnComponent implements OnInit {
   @Input()
   currentFile: FileModel;
 

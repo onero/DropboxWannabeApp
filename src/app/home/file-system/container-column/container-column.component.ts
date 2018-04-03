@@ -5,11 +5,11 @@ import {FolderService} from '../shared/folder.service';
 import {AuthService} from '../../../auth/shared/auth.service';
 
 @Component({
-  selector: 'app-data-container',
-  templateUrl: './data-container.component.html',
-  styleUrls: ['./data-container.component.scss']
+  selector: 'app-container-column',
+  templateUrl: './container-column.component.html',
+  styleUrls: ['./container-column.component.scss']
 })
-export class DataContainerComponent implements OnInit {
+export class ContainerColumnComponent implements OnInit {
   folders: FolderModel[] = [];
   file: FileModel;
 
