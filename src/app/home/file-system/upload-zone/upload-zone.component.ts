@@ -24,7 +24,7 @@ export class UploadZoneComponent implements OnInit {
 
 
 
-  constructor(private fileService: StorageService,
+  constructor(private storageService: StorageService,
               private errorService: ErrorService,
               private userService: UserService) {}
 
@@ -37,7 +37,7 @@ export class UploadZoneComponent implements OnInit {
 
   startUpload(event: FileList) {
     const file = event.item(0);
-    this.task = this.fileService.uploadFile(file);
+    this.task = this.storageService.uploadFile(file);
     this.uploadIsActive = true;
 
     this.task.then(() => {

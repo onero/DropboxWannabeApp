@@ -1,7 +1,7 @@
 export interface FileModel {
-  uid: string;
-  url: string;
-  created: string;
+  uid?: string;
+  url?: string;
+  created?: string;
   displayName?: string;
   fileName?: string;
   size?: number;

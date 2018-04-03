@@ -11,14 +11,14 @@ export class StorageService {
   }
 
   uploadFile(file: File): AngularFireUploadTask {
-    const username = this.authService.getUsername();
-    const path = `${username}/${new Date().getTime()}_${file.name}`;
+    const uid = this.authService.getUID();
+    const path = `${uid}/${new Date().getTime()}_${file.name}`;
     return this.afStorage.upload(path, file);
   }
 
   uploadUniqueFile(file: File, specificFileName?: string): AngularFireUploadTask {
-    const username = this.authService.getUsername();
-    const path = `${username}/${specificFileName || file.name}`;
+    const uid = this.authService.getUID();
+    const path = `${uid}/${specificFileName || file.name}`;
     return this.afStorage.upload(path, file);
   }
 
@@ -27,7 +27,7 @@ export class StorageService {
   }
 
   deleteProfilePic(user: User) {
-    const ref = this.afStorage.storage.ref(`${user.username}/profile_photo`);
+    const ref = this.afStorage.storage.ref(`${user.uid}/profile_photo`);
     if (ref) {
       ref.delete();
     }

@@ -1,4 +1,8 @@
-<mat-card *ngIf="currentFolder" fxLayout="column" fxFill>
+<mat-card *ngIf="currentFolder" fxLayout="column" fxFill
+          appDropZone
+          (hovered)="toggleHover($event)"
+          (dropped)="startUpload($event)"
+          [class.hovering]="isHovering">
   <mat-card-header>
     <mat-card-title>{{currentFolder.displayName}}</mat-card-title>
   </mat-card-header>
@@ -7,7 +11,7 @@
       <div *ngIf="currentFolder.subFolders">
         <h3 mat-subheader>Folders</h3>
         <mat-list-item *ngFor="let folder of currentFolder.subFolders"
-                       (click)="onFolderClicked(folder)">
+                       (click)="onSubFolderClicked(folder)">
           <mat-icon mat-list-icon
                     color="accent">folder</mat-icon>
           <h4 mat-line>{{folder.displayName}}</h4>

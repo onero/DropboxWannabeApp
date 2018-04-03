@@ -18,7 +18,7 @@ export class FileComponent implements OnInit {
   }
 
   checkForImage(): boolean {
-    return this.currentFile.type === 'image/jpeg';
+    return this.currentFile.type.includes('image');
   }
 
   getFileSrc() {
