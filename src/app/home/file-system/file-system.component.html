@@ -1,14 +1,15 @@
 <div fxLayout="row" fxFlexFill>
-  <!--FILE DROP-->
-  <!--TODO ALH: Move implementation to folder-->
-  <!--<app-upload-zone></app-upload-zone>-->
-  <!--FILES-->
   <div fxLayout="column"
        fxFlex>
     <div fxLayoutAlign="center">
-      <app-container-column></app-container-column>
-      <!--// TODO ALH: Reimplement with tabs-->
-      <!--<app-image-gallery></app-image-gallery>-->
+      <mat-tab-group>
+        <mat-tab label="Folder Navigation">
+          <app-container-column></app-container-column>
+        </mat-tab>
+        <mat-tab label="Image Gallery">
+          <app-image-gallery></app-image-gallery>
+        </mat-tab>
+      </mat-tab-group>
     </div>
   </div>
 </div>

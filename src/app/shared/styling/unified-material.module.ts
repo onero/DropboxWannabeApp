@@ -7,7 +7,7 @@ import {
   MatGridListModule,
   MatIconModule,
   MatInputModule,
-  MatListModule, MatProgressSpinnerModule, MatTooltipModule
+  MatListModule, MatProgressSpinnerModule, MatTabsModule, MatTooltipModule
 } from '@angular/material';
 
 @NgModule({
@@ -22,7 +22,8 @@ import {
     MatFormFieldModule,
     MatTooltipModule,
     MatDialogModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatTabsModule
   ],
   declarations: [
   ],
@@ -37,7 +38,8 @@ import {
     MatFormFieldModule,
     MatTooltipModule,
     MatDialogModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatTabsModule
   ]
 })
 export class UnifiedMaterialModule {

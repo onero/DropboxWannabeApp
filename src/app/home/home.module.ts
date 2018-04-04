@@ -9,7 +9,6 @@ import {FileSizePipe} from './file-system/shared/file-size.pipe';
 import {AngularFirestoreModule} from 'angularfire2/firestore';
 import {NgxGalleryModule} from 'ngx-gallery';
 import {ImageGalleryComponent} from './file-system/image-gallery/image-gallery.component';
-import {UploadZoneComponent} from './file-system/upload-zone/upload-zone.component';
 import {SharedModule} from '../shared/shared.module';
 import {FileService} from './file-system/shared/file.service';
 import {FolderService} from './file-system/shared/folder.service';
@@ -32,7 +31,6 @@ import {FileColumnComponent} from './file-system/file/file-column.component';
     FileSystemComponent,
     FileSizePipe,
     ImageGalleryComponent,
-    UploadZoneComponent,
     FolderComponent,
     ContainerColumnComponent,
     FileColumnComponent],
