@@ -22,19 +22,39 @@ export class ContainerColumnComponent implements OnInit {
     this.folderService.getFolder(uid)
       .subscribe(folder => {
         const rootFolder = folder as FolderModel;
-        this.addFolder(rootFolder);
+        this.folders.push(rootFolder);
       });
   }
 
-  addFolder(folder: FolderModel) {
+  selectFolder(newFolder: FolderModel) {
     this.file = null;
-    const folderAlreadyDisplayed = this.folders.find(displayedFolder => displayedFolder.uid === folder.uid);
-    if (!folderAlreadyDisplayed) {
-      this.folders.push(folder);
+    const notFound = -1;
+    const folderIndex = this.folders.findIndex(folder => {
+      const folderModel = folder as FolderModel;
+      if (folderModel.subFolders) {
+        const folderFound = folderModel.subFolders.find(subFolder => subFolder.uid === newFolder.uid);
+        if (folderFound) {
+          return true;
+        }
+      }
+    });
+    if (folderIndex !== notFound) {
+      this.folders.splice(folderIndex + 1);
     }
+    this.folders.push(newFolder);
   }
 
   selectFile(file: FileModel) {
+    const folderWithFileIndex = this.folders.findIndex(folder => {
+      const folderModel = folder as FolderModel;
+      if (folderModel.files) {
+        const fileInFolder = folderModel.files.find(folderFile => folderFile.fileName === file.fileName);
+        if (fileInFolder) {
+          return true;
+        }
+      }
+    });
+    this.folders.splice(folderWithFileIndex + 1);
     this.file = file;
   }
 }

@@ -8,14 +8,12 @@ import {AuthModule} from './auth/auth.module';
 import {HomeModule} from './home/home.module';
 import {UserModule} from './user/user.module';
 import {CoreModule} from './core/core.module';
-import {FlexLayoutModule} from '@angular/flex-layout';
 import {AppRoutes} from './app.routing';
 import {AngularFireModule} from 'angularfire2';
 import {environment} from '../environments/environment';
 import {Ng4LoadingSpinnerModule} from 'ng4-loading-spinner';
 import {AngularFirestoreModule} from 'angularfire2/firestore';
-import {UnifiedMaterialModule} from './shared/styling/unified-material.module';
-import { SharedModule } from './shared/shared.module';
+import {SharedModule} from './shared/shared.module';
 
 
 @NgModule({

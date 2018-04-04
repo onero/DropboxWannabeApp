@@ -1,0 +1,13 @@
+@import "../../../../assets/_colors.scss";
+
+button {
+  color: white;
+}
+
+.yes-button {
+  background-color: $android-green;
+}
+
+.no-button {
+  background-color: #ccc;
+}

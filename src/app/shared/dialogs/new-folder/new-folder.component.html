@@ -1,0 +1,10 @@
+<h2 mat-dialog-title>Create New Folder</h2>
+<mat-dialog-content>
+  <mat-form-field>
+    <input #folderName matInput placeholder="Name of new folder">
+  </mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button class="yes-button" mat-raised-button (click)="createFolder(folderName.value)">Create</button>
+  <button class="no-button" mat-raised-button mat-dialog-close>Cancel</button>
+</mat-dialog-actions>

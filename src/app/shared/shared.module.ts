@@ -6,6 +6,7 @@ import {FrannyCapsLockDirective} from './directives/franny-caps-lock.directive';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import {UnifiedMaterialModule} from './styling/unified-material.module';
 import { ConfirmDeleteComponent } from './dialogs/confirm-delete/confirm-delete.component';
+import { NewFolderComponent } from './dialogs/new-folder/new-folder.component';
 
 @NgModule({
   imports: [
@@ -17,10 +18,12 @@ import { ConfirmDeleteComponent } from './dialogs/confirm-delete/confirm-delete.
     AutofocusDirective,
     FrannyCapsLockDirective,
     DropZoneDirective,
-    ConfirmDeleteComponent
+    ConfirmDeleteComponent,
+    NewFolderComponent
   ],
   entryComponents: [
-    ConfirmDeleteComponent
+    ConfirmDeleteComponent,
+    NewFolderComponent
   ],
   exports: [
     AutofocusDirective,
