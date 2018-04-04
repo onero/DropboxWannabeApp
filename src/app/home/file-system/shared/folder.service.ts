@@ -15,10 +15,10 @@ export class FolderService {
     return this.afs.doc<FolderModel>(this.foldersPath + uid).valueChanges();
   }
 
-  addFileToFolder(uid: string, upatedArray: FileModel[]) {
+  addFileToFolder(uid: string, updatedArray: FileModel[]) {
     return this.afs.doc<FolderModel>(this.foldersPath + uid)
       .set({
-        files: upatedArray
+        files: updatedArray
       }, {merge: true});
   }
 

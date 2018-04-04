@@ -30,6 +30,10 @@ export class ContainerColumnComponent implements OnInit {
     this.file = null;
     const folderAlreadyDisplayed = this.folders.find(displayedFolder => displayedFolder.uid === folder.uid);
     if (!folderAlreadyDisplayed) {
+      // Make sure only 1 folder from current directory is shown
+      if (this.folders.length > 1) {
+        this.folders.pop();
+      }
       this.folders.push(folder);
     }
   }
