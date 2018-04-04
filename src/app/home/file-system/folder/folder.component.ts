@@ -6,6 +6,8 @@ import {AngularFireUploadTask} from 'angularfire2/storage';
 import {Observable} from 'rxjs/Observable';
 import {StorageService} from '../shared/storage.service';
 import {ErrorService} from '../../../core/error-handling/error.service';
+import {MatDialog} from '@angular/material';
+import {NewFolderComponent} from '../../../shared/dialogs/new-folder/new-folder.component';
 
 @Component({
   selector: 'app-folder',
@@ -34,7 +36,8 @@ export class FolderComponent implements OnInit {
 
   constructor(private folderService: FolderService,
               private storageService: StorageService,
-              private errorService: ErrorService) {
+              private errorService: ErrorService,
+              private dialog: MatDialog) {
   }
 
   ngOnInit() {
@@ -42,6 +45,16 @@ export class FolderComponent implements OnInit {
 
   onFileClicked(file: FileModel) {
     this.fileClicked.emit(file);
+  }
+
+  addSubFolder() {
+    this.dialog.open(NewFolderComponent)
+      .afterClosed()
+      .subscribe(subFolderName => {
+        if (subFolderName !== '') {
+          this.folderService.createSubFolder(this.currentFolder, subFolderName);
+        }
+      });
   }
 
   onSubFolderClicked(folder: FolderModel) {
