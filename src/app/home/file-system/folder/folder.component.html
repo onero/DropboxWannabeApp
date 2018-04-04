@@ -5,16 +5,31 @@
           [class.hovering]="isHovering">
   <mat-card-header>
     <mat-card-title>{{currentFolder.displayName}}</mat-card-title>
+    <!--Upload information-->
+    <div *ngIf="snapshot | async as snap">
+      <div *ngIf="uploadIsActive">
+        <progress *ngIf="uploadPercent | async as pct"
+                  class="progress is-info"
+                  [value]="pct"
+                  max="100">
+          {{ pct | number }}%
+        </progress>
+        {{ snap.bytesTransferred | fileSize }} of {{ snap.totalBytes | fileSize }}
+        <div>
+          <button class="pause-button" (click)="pause()" mat-button [disabled]="!isUploading(snap)">Pause</button>
+          <button class="resume-button" (click)="resume()" mat-button [disabled]="!isPaused(snap)">Resume</button>
+          <button class="cancel-button" (click)="cancel()" mat-button [disabled]="!isUploading(snap)">Cancel</button>
+        </div>
+      </div>
+    </div>
   </mat-card-header>
   <mat-card-content>
     <mat-nav-list>
+      <button mat-button (click)="addSubFolder()">
+        <mat-icon class="green-add">add</mat-icon>Folder
+      </button>
       <div *ngIf="currentFolder.subFolders">
         <h3 mat-subheader>Folders</h3>
-        <h3 mat-subheader>
-          <button mat-button (click)="addSubFolder()">
-            <mat-icon class="green-add">add</mat-icon>
-          </button>
-        </h3>
         <mat-list-item *ngFor="let folder of currentFolder.subFolders"
                        (click)="onSubFolderClicked(folder)">
           <mat-icon mat-list-icon
@@ -24,6 +39,12 @@
         </mat-list-item>
       </div>
 
+      <h3 mat-subheader matTooltip="I also accept Drag & Drop!">
+        <input #fileInput
+               class="file-input"
+               type="file"
+               (change)="startUpload(fileInput.files); fileInput.value = ''">
+      </h3>
       <div *ngIf="currentFolder.files">
         <h3 mat-subheader>Files</h3>
         <mat-list-item *ngFor="let file of currentFolder.files"
@@ -41,19 +62,3 @@
     <h4 *ngIf="!file && !currentFolder.subFolders && !currentFolder.files">No folders or files yet</h4>
   </mat-card-actions>
 </mat-card>
-<div *ngIf="snapshot | async as snap">
-  <div *ngIf="uploadIsActive">
-    <progress *ngIf="uploadPercent | async as pct"
-              class="progress is-info"
-              [value]="pct"
-              max="100">
-      {{ pct | number }}%
-    </progress>
-    {{ snap.bytesTransferred | fileSize }} of {{ snap.totalBytes | fileSize }}
-    <div>
-      <button class="pause-button" (click)="pause()" mat-button [disabled]="!isUploading(snap)">Pause</button>
-      <button class="resume-button" (click)="resume()" mat-button [disabled]="!isPaused(snap)">Resume</button>
-      <button class="cancel-button" (click)="cancel()" mat-button [disabled]="!isUploading(snap)">Cancel</button>
-    </div>
-  </div>
-</div>

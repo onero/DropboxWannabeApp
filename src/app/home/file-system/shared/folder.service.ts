@@ -32,6 +32,10 @@ export class FolderService {
         newSubFolder.uid = result.id;
         // Add uid to new subFolder
         result.set(newSubFolder, {merge: true});
+        // Check for subFolders
+        if (!parentFolder.subFolders) {
+          parentFolder.subFolders = [];
+        }
         parentFolder.subFolders.push(newSubFolder);
         // Add subFolder to ParentFolder
         return this.afs.doc<FolderModel>(this.foldersPath + parentFolder.uid)
