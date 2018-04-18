@@ -98,33 +98,37 @@ export class ProfileComponent implements OnInit, OnDestroy {
       .afterClosed()
       .subscribe(userResponse => {
         if (userResponse === 'yes') {
-          // Delete user profile pic
-          this.storageService.deleteProfilePic(this.user);
-          // Delete all user files
-          const userFileCollection = this.userService.getUserCollection();
-          userFileCollection.valueChanges()
-            .subscribe(files => {
-              files.forEach(file => {
-                this.storageService.deleteFileByUrl(file.path);
-              });
-              // Unsubscribe to avoid errors
-              this.userSubscription.unsubscribe();
-              // Delete user uploads from collection
-              this.userService.getUserCollection()
-                .snapshotChanges()
-                .subscribe(uploads => {
-                  uploads.forEach(doc => {
-                    doc.payload.doc.ref.delete();
-                  });
-                  // Delete user reference from DB
-                  this.userService.deleteUser(this.user)
-                    .then(() => {
-                      // Delete actual authUser
-                      this.authService.deleteAuthUser();
-                      localStorage.clear();
-                    });
-                });
-            });
+          this.authService.deleteAuthUser();
+          localStorage.clear();
+
+          // TODO ALH: Update according to old implementation, then delete!
+          // // Delete user profile pic
+          // this.storageService.deleteProfilePic(this.user);
+          // // Delete all user files
+          // const userFileCollection = this.userService.getUserCollection();
+          // userFileCollection.valueChanges()
+          //   .subscribe(files => {
+          //     files.forEach(file => {
+          //       this.storageService.deleteFileByUrl(file.path);
+          //     });
+          //     // Unsubscribe to avoid errors
+          //     this.userSubscription.unsubscribe();
+          //     // Delete user uploads from collection
+          //     this.userService.getUserCollection()
+          //       .snapshotChanges()
+          //       .subscribe(uploads => {
+          //         uploads.forEach(doc => {
+          //           doc.payload.doc.ref.delete();
+          //         });
+          //         // Delete user reference from DB
+          //         this.userService.deleteUser(this.user)
+          //           .then(() => {
+          //             // Delete actual authUser
+          //             this.authService.deleteAuthUser();
+          //             localStorage.clear();
+          //           });
+          //       });
+          //   });
         }
       });
   }

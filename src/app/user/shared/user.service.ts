@@ -40,13 +40,6 @@ export class UserService {
       .doc(this.username).collection(this.userUploadsPath);
   }
 
-  updateUserCollection(path: string) {
-    const userId = this.authService.getUID();
-    const item = {userId, path};
-    this.getUserCollection().add(item)
-      .catch(reason => console.log(reason));
-  }
-
   deleteFileFromUserCollection(path: string) {
     this.afs.collection(this.filesCollectionPath)
       .doc(this.username).collection(this.userUploadsPath, ref => ref.where('path', '==', path))
@@ -58,13 +51,6 @@ export class UserService {
         });
       });
     return null;
-  }
-
-  deleteUser(user: User): Promise<any> {
-    return this.afs.doc(`files/${user.username}`).delete()
-      .then(() => {
-        return this.afs.doc(`users/${user.uid}`).delete();
-      });
   }
 
   updateUser(user: User): Promise<any> {
